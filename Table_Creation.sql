@@ -63,7 +63,7 @@ CREATE TABLE Customer (
 -- Creating Employee table
 CREATE TABLE Employee (
     EmployeeID nchar(4) PRIMARY KEY NOT NULL,
-    SocialSecurityNumber nchar(11) NOT NULL,
+    SocialInsuranceNumber nchar(9) NOT NULL,
     LastName varchar(30) NOT NULL,
     FirstName varchar(30) NOT NULL,
     Addr varchar(50) NOT NULL,
