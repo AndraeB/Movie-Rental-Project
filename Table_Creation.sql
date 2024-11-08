@@ -1,10 +1,12 @@
--- create TutorialDB database it not exist
+-- Create TutorialDB database if it does not already exist
 -- IF NOT EXISTS ( SELECT name FROM sys.databases WHERE name = N'MovieRental' ) CREATE DATABASE [MovieRental]; 
 -- Go
 
 USE MovieRental;
 
--- Dropping tables if they already exist to avoid conflicts
+-- Dropping sequence and tables if they already exist to avoid conflicts
+DROP SEQUENCE IF EXISTS Movie_MovieID_Seq;
+
 DROP TABLE IF EXISTS Cust_Phone;
 DROP TABLE IF EXISTS Emp_Phone;
 DROP TABLE IF EXISTS Movie_Rating;
@@ -14,69 +16,73 @@ DROP TABLE IF EXISTS Movie;
 DROP TABLE IF EXISTS Actor;
 DROP TABLE IF EXISTS Customer;
 DROP TABLE IF EXISTS Employee;
+DROP TABLE IF EXISTS Queue_up;
+
 
 -- Creating Movie table
 CREATE TABLE Movie (
-    MovieID nchar(4) PRIMARY KEY,
-    MovieName nchar(30),
-    MovieType nchar(20),
-    DistributionFee int,
-    NumOfCopies int,
-    Rating int,
+    MovieID nchar(4) PRIMARY KEY NOT NULL,
+    MovieName varchar(30) NOT NULL,
+    MovieType nchar(20) NOT NULL,
+    DistributionFee float NOT NULL,
+    NumOfCopies int NOT NULL,
+    Rating int NOT NULL,
 );
+
+CREATE SEQUENCE MovieIDSeq START WITH 1000 INCREMENT BY 1;
 
 -- Creating Actor table
 CREATE TABLE Actor (
-    ActorID nchar(4) PRIMARY KEY,
-    LastName nchar(30),
-    FirstName nchar(30),
-    Gender nchar(10),
-    DateOfBirth date,
-    Age int,
+    ActorID nchar(4) PRIMARY KEY NOT NULL,
+    LastName varchar(30) NOT NULL,
+    FirstName varchar(30) NOT NULL,
+    Gender nchar(1) NOT NULL CHECK( Gender='M' or Gender='F' ),
+    DateOfBirth date NOT NULL,
+    Age int NOT NULL,
     Rating int
 );
 
 -- Creating Customer table
 CREATE TABLE Customer (
-    CustomerID nchar(4) PRIMARY KEY,
-    LastName nchar(30),
-    FirstName nchar(30),
-    Address nchar(50),
-    City nchar(20),
-    State nchar(2),
-    ZipCode nchar(10),
-    EmailAddress nchar(50),
-    AccountNumber nchar(20),
-    AccountDateCreation date,
-    CreditCardNumber nchar(16),
-    RentalHistory nchar(50),
-    Rating int
+    CustomerID nchar(4) PRIMARY KEY NOT NULL,
+    LastName varchar(30) NOT NULL,
+    FirstName varchar(30) NOT NULL,
+    Addr varchar(50) NOT NULL,
+    City varchar(20) NOT NULL,
+    Province nchar(2) NOT NULL,
+    PostalCode nchar(6) NOT NULL,
+    EmailAddress varchar(50),
+    AccountNumber nchar(20) NOT NULL,
+    AccountDateCreation date NOT NULL,
+    CreditCardNumber nchar(16) NOT NULL,
+    RentalHistory nchar(50),          -- Should this be a varchar?
+    Rating int NOT NULL
 );
 
 -- Creating Employee table
 CREATE TABLE Employee (
-    EmployeeID nchar(4) PRIMARY KEY,
-    SocialSecurityNumber nchar(11),
-    LastName nchar(30),
-    FirstName nchar(30),
-    Address nchar(50),
-    City nchar(20),
-    State nchar(2),
-    ZipCode nchar(10),
-    StartDate date
+    EmployeeID nchar(4) PRIMARY KEY NOT NULL,
+    SocialSecurityNumber nchar(11) NOT NULL,
+    LastName varchar(30) NOT NULL,
+    FirstName varchar(30) NOT NULL,
+    Addr varchar(50) NOT NULL,
+    City varchar(20) NOT NULL,
+    Province nchar(2) NOT NULL,
+    PostalCode nchar(2) NOT NULL,
+    StartDate date NOT NULL
 );
 
 -- Creating Cust_Phone table for customer phone numbers
 CREATE TABLE Cust_Phone (
-    CustomerID nchar(4) FOREIGN KEY REFERENCES Customer(CustomerID),
-    PhoneNumber nchar(15),
+    CustomerID nchar(4) FOREIGN KEY REFERENCES Customer(CustomerID) NOT NULL,
+    PhoneNumber nchar(15) NOT NULL,
     PRIMARY KEY (CustomerID, PhoneNumber)
 );
 
 -- Creating Emp_Phone table for employee phone numbers
 CREATE TABLE Emp_Phone (
-    EmployeeID nchar(4) FOREIGN KEY REFERENCES Employee(EmployeeID),
-    PhoneNumber nchar(15),
+    EmployeeID nchar(4) FOREIGN KEY REFERENCES Employee(EmployeeID) NOT NULL,
+    PhoneNumber nchar(15) NOT NULL,
     PRIMARY KEY (EmployeeID, PhoneNumber)
 );
 
@@ -105,6 +111,12 @@ CREATE TABLE Actor_Rating (
     Rating int
 );
 
+CREATE TABLE Queue_up (
+    MovieID nchar(4) FOREIGN KEY REFERENCES Movie(MovieID),
+    CustomerID nchar(4) FOREIGN KEY REFERENCES Customer(CustomerID),
+	Date_added datetime,
+);
+
 select * from Actor
 select * from Actor_Rating
 select * from Cust_Phone
@@ -114,3 +126,4 @@ select * from Employee
 select * from Movie
 select * from Movie_Rating
 select * from Ordr
+select * from Queue_up
