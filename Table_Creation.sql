@@ -5,7 +5,7 @@
 USE MovieRental;
 
 -- Dropping sequence and tables if they already exist to avoid conflicts
-DROP SEQUENCE IF EXISTS Movie_MovieID_Seq;
+DROP SEQUENCE IF EXISTS MovieIDSeq;
 
 DROP TABLE IF EXISTS Queue_up;
 DROP TABLE IF EXISTS Appears_in;
@@ -65,12 +65,13 @@ CREATE TABLE Customer (
 CREATE TABLE Employee (
     EmployeeID nchar(4) PRIMARY KEY NOT NULL,
     SocialInsuranceNumber nchar(9) NOT NULL,
+	Userpass varbinary(32) NOT NULL,
     LastName varchar(30) NOT NULL,
     FirstName varchar(30) NOT NULL,
-    Addr varchar(50) NOT NULL,
-    City varchar(20) NOT NULL,
-    Province nchar(2) NOT NULL,
-    PostalCode nchar(2) NOT NULL,
+    Addr varchar(50),
+    City varchar(20),
+    Province nchar(2),
+    PostalCode nchar(2),
     StartDate date NOT NULL
 );
 
