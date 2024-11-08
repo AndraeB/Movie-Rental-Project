@@ -7,6 +7,8 @@ USE MovieRental;
 -- Dropping sequence and tables if they already exist to avoid conflicts
 DROP SEQUENCE IF EXISTS Movie_MovieID_Seq;
 
+DROP TABLE IF EXISTS Queue_up;
+DROP TABLE IF EXISTS Appears_in;
 DROP TABLE IF EXISTS Cust_Phone;
 DROP TABLE IF EXISTS Emp_Phone;
 DROP TABLE IF EXISTS Movie_Rating;
@@ -16,7 +18,6 @@ DROP TABLE IF EXISTS Movie;
 DROP TABLE IF EXISTS Actor;
 DROP TABLE IF EXISTS Customer;
 DROP TABLE IF EXISTS Employee;
-DROP TABLE IF EXISTS Queue_up;
 
 
 -- Creating Movie table
@@ -111,12 +112,20 @@ CREATE TABLE Actor_Rating (
     Rating int
 );
 
+--Generate for Appears_in
+CREATE TABLE Appears_in (
+    MovieID nchar(4) FOREIGN KEY REFERENCES Movie(MovieID),
+    ActorID nchar(4) FOREIGN KEY REFERENCES Actor(ActorID),
+);
+
 CREATE TABLE Queue_up (
     MovieID nchar(4) FOREIGN KEY REFERENCES Movie(MovieID),
     CustomerID nchar(4) FOREIGN KEY REFERENCES Customer(CustomerID),
 	Date_added datetime,
 );
 
+select * from Queue_up
+select * from Appears_in
 select * from Actor
 select * from Actor_Rating
 select * from Cust_Phone
@@ -126,4 +135,3 @@ select * from Employee
 select * from Movie
 select * from Movie_Rating
 select * from Ordr
-select * from Queue_up
