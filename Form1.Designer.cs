@@ -38,7 +38,7 @@
             // 
             // UserBox
             // 
-            UserBox.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            UserBox.Font = new Font("Segoe UI", 14F);
             UserBox.Location = new Point(303, 129);
             UserBox.Margin = new Padding(3, 2, 3, 2);
             UserBox.Name = "UserBox";
@@ -48,7 +48,7 @@
             // 
             // PassBox
             // 
-            PassBox.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            PassBox.Font = new Font("Segoe UI", 14F);
             PassBox.Location = new Point(303, 181);
             PassBox.Margin = new Padding(3, 2, 3, 2);
             PassBox.Name = "PassBox";
@@ -58,7 +58,7 @@
             // 
             // LoginButton
             // 
-            LoginButton.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            LoginButton.Font = new Font("Segoe UI", 14F);
             LoginButton.Location = new Point(303, 236);
             LoginButton.Margin = new Padding(3, 2, 3, 2);
             LoginButton.Name = "LoginButton";
@@ -71,7 +71,7 @@
             // LoginTitle
             // 
             LoginTitle.AutoSize = true;
-            LoginTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+            LoginTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             LoginTitle.ForeColor = Color.Blue;
             LoginTitle.Location = new Point(191, 77);
             LoginTitle.Name = "LoginTitle";
@@ -82,7 +82,7 @@
             // UserLabel
             // 
             UserLabel.AutoSize = true;
-            UserLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+            UserLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             UserLabel.ForeColor = Color.Blue;
             UserLabel.Location = new Point(191, 129);
             UserLabel.Name = "UserLabel";
@@ -93,7 +93,7 @@
             // PassLabel
             // 
             PassLabel.AutoSize = true;
-            PassLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+            PassLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             PassLabel.ForeColor = Color.Blue;
             PassLabel.Location = new Point(191, 188);
             PassLabel.Name = "PassLabel";
