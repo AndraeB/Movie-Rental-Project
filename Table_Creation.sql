@@ -27,6 +27,7 @@ CREATE TABLE Movie (
     MovieType nchar(20) NOT NULL,
     DistributionFee float NOT NULL,
     NumOfCopies int NOT NULL,
+    MovieAvailability bit NOT NULL DEFAULT 0,
     Rating int NOT NULL,
 );
 
