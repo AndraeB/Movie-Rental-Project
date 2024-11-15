@@ -22,13 +22,13 @@ DROP TABLE IF EXISTS Employee;
 
 -- Creating Movie table
 CREATE TABLE Movie (
-    MovieID nchar(4) PRIMARY KEY NOT NULL,
+    MovieID INT Identity(10000,23) PRIMARY KEY NOT NULL,
     MovieName varchar(30) NOT NULL,
     MovieType nchar(20) NOT NULL,
     DistributionFee float NOT NULL,
     NumOfCopies int NOT NULL,
     MovieAvailability bit NOT NULL DEFAULT 0,
-    Rating int NOT NULL,
+    Rating int
 );
 
 CREATE SEQUENCE MovieIDSeq START WITH 1000 INCREMENT BY 1;
@@ -102,7 +102,7 @@ CREATE TABLE Ordr (
 CREATE TABLE Movie_Rating (
     RatingID nchar(4) PRIMARY KEY,
     OrderID nchar(4) FOREIGN KEY REFERENCES Ordr(OrderID),
-    MovieID nchar(4) FOREIGN KEY REFERENCES Movie(MovieID),
+    MovieID INT FOREIGN KEY REFERENCES Movie(MovieID),
     Rating int
 );
 
@@ -116,12 +116,12 @@ CREATE TABLE Actor_Rating (
 
 --Generate for Appears_in
 CREATE TABLE Appears_in (
-    MovieID nchar(4) FOREIGN KEY REFERENCES Movie(MovieID),
+    MovieID INT FOREIGN KEY REFERENCES Movie(MovieID),
     ActorID nchar(4) FOREIGN KEY REFERENCES Actor(ActorID),
 );
 
 CREATE TABLE Queue_up (
-    MovieID nchar(4) FOREIGN KEY REFERENCES Movie(MovieID),
+    MovieID INT FOREIGN KEY REFERENCES Movie(MovieID),
     CustomerID nchar(4) FOREIGN KEY REFERENCES Customer(CustomerID),
 	Date_added datetime,
 );
