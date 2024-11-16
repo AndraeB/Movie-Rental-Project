@@ -34,6 +34,7 @@
             addmovie = new Button();
             Delete = new Button();
             dataGridView1 = new DataGridView();
+            MovieID = new DataGridViewTextBoxColumn();
             Title = new DataGridViewTextBoxColumn();
             Fee = new DataGridViewTextBoxColumn();
             Type = new DataGridViewTextBoxColumn();
@@ -77,6 +78,7 @@
             addmovie.TabIndex = 4;
             addmovie.Text = "ADD A MOVIE";
             addmovie.UseVisualStyleBackColor = true;
+            addmovie.Click += addmovie_Click;
             // 
             // Delete
             // 
@@ -86,16 +88,24 @@
             Delete.TabIndex = 5;
             Delete.Text = "DELETE";
             Delete.UseVisualStyleBackColor = true;
+            Delete.Click += Delete_Click;
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Title, Fee, Type, Copies });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { MovieID, Title, Fee, Type, Copies });
             dataGridView1.Location = new Point(220, 22);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(568, 404);
             dataGridView1.TabIndex = 6;
+            // 
+            // MovieID
+            // 
+            MovieID.HeaderText = "MovieID";
+            MovieID.Name = "MovieID";
+            MovieID.Visible = false;
+            MovieID.Width = 21;
             // 
             // Title
             // 
@@ -155,10 +165,12 @@
         private Button addmovie;
         private Button Delete;
         private DataGridView dataGridView1;
+        private Button searchbutton;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn MovieID;
         private DataGridViewTextBoxColumn Title;
         private DataGridViewTextBoxColumn Fee;
         private DataGridViewTextBoxColumn Type;
         private DataGridViewTextBoxColumn Copies;
-        private Button searchbutton;
     }
 }
