@@ -64,6 +64,7 @@
             CancelBtn.TabIndex = 1;
             CancelBtn.Text = "Cancel";
             CancelBtn.UseVisualStyleBackColor = true;
+            CancelBtn.Click += CancelBtn_Click;
             // 
             // FirstNmLbl
             // 
@@ -137,7 +138,6 @@
             CityLbl.Size = new Size(28, 15);
             CityLbl.TabIndex = 10;
             CityLbl.Text = "City";
-            CityLbl.Click += this.label3_Click;
             // 
             // CityTxtBox
             // 

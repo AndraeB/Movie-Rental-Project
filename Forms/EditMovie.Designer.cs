@@ -73,6 +73,7 @@
             Cancel.TabIndex = 19;
             Cancel.Text = "CANCEL";
             Cancel.UseVisualStyleBackColor = true;
+            Cancel.Click += Cancel_Click;
             // 
             // Save
             // 

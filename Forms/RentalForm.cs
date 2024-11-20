@@ -16,5 +16,12 @@ namespace MovieRentalProject
         {
             InitializeComponent();
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            MenuForm menuForm = new MenuForm();
+            menuForm.Show();
+            this.Hide();
+        }
     }
 }

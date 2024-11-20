@@ -180,5 +180,12 @@ namespace MovieRentalProject
             addmovieForm.Show();
             this.Hide();
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            MenuForm menuForm = new MenuForm();
+            menuForm.Show();
+            this.Hide();
+        }
     }
 }

@@ -29,8 +29,8 @@ namespace MovieRentalProject.Forms
             string movieType = TypeAdd.Text.Trim();
             string movieCopies = CopiesAdd.Text.Trim();
 
-            
-        
+
+
 
             // Validate the fields (basic check for empty fields)
             if (string.IsNullOrEmpty(movieTitle) || string.IsNullOrEmpty(movieFee) || string.IsNullOrEmpty(movieType) || string.IsNullOrEmpty(movieCopies))
@@ -59,12 +59,12 @@ namespace MovieRentalProject.Forms
                     // Execute SQL command with parameters
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        
+
                         command.Parameters.AddWithValue("@MovieName", movieTitle);
                         command.Parameters.AddWithValue("@DistributionFee", movieFee);
                         command.Parameters.AddWithValue("@MovieType", movieType);
                         command.Parameters.AddWithValue("@NumOfCopies", movieCopies);
-                      
+
 
                         // Execute the insert command
                         int rowsAffected = command.ExecuteNonQuery();
@@ -87,6 +87,13 @@ namespace MovieRentalProject.Forms
             {
                 MessageBox.Show($"Error inserting data: {ex.Message}");
             }
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            MovieForm movieForm = new MovieForm();
+            movieForm.Show();
+            this.Hide();
         }
     }
 }
