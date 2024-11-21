@@ -8,6 +8,17 @@ using System.Windows.Forms;
 
 namespace MovieRentalProject
 {
+    static class Global
+    {
+        private static string _globalEmpID = "";
+
+        public static string GlobalEmpID
+        {
+            get { return _globalEmpID; }
+            set { _globalEmpID = value; }
+        }
+    }
+
     public partial class LoginForm : Form
     {
         // Fetch the connection string from App.config
@@ -41,6 +52,8 @@ namespace MovieRentalProject
 
             if (AuthenticateUser(employeeID, password))
             {
+                Global.GlobalEmpID = employeeID;
+
                 MessageBox.Show("Login successful!");
                 // After successful login, open the MenuForm
                 MenuForm menuForm = new MenuForm();
