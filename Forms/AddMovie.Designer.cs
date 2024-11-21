@@ -104,6 +104,7 @@
             Cancel.TabIndex = 6;
             Cancel.Text = "CANCEL";
             Cancel.UseVisualStyleBackColor = true;
+            Cancel.Click += Cancel_Click;
             // 
             // ActorName
             // 

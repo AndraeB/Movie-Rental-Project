@@ -40,6 +40,7 @@
             Type = new DataGridViewTextBoxColumn();
             Copies = new DataGridViewTextBoxColumn();
             searchbutton = new Button();
+            backButton = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -138,11 +139,22 @@
             searchbutton.UseVisualStyleBackColor = true;
             searchbutton.Click += searchbutton_Click;
             // 
+            // backButton
+            // 
+            backButton.Location = new Point(32, 383);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(115, 23);
+            backButton.TabIndex = 8;
+            backButton.Text = "BACK";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
+            // 
             // MovieForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(backButton);
             Controls.Add(searchbutton);
             Controls.Add(dataGridView1);
             Controls.Add(Delete);
@@ -172,5 +184,6 @@
         private DataGridViewTextBoxColumn Fee;
         private DataGridViewTextBoxColumn Type;
         private DataGridViewTextBoxColumn Copies;
+        private Button backButton;
     }
 }

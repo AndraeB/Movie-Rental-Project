@@ -365,3 +365,4 @@ FodyWeavers.xsd
 # Ignore configuration files
 App.config
 Web.config
+example_config.txt

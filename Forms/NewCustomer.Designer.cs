@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "NewCustomer";
+            CancelBtn = new Button();
+            SuspendLayout();
+            // 
+            // CancelBtn
+            // 
+            CancelBtn.Location = new Point(342, 203);
+            CancelBtn.Name = "CancelBtn";
+            CancelBtn.Size = new Size(117, 44);
+            CancelBtn.TabIndex = 2;
+            CancelBtn.Text = "Cancel";
+            CancelBtn.UseVisualStyleBackColor = true;
+            CancelBtn.Click += CancelBtn_Click;
+            // 
+            // NewCustomer
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(CancelBtn);
+            Name = "NewCustomer";
+            Text = "NewCustomer";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button CancelBtn;
     }
 }

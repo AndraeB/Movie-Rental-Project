@@ -109,5 +109,12 @@ namespace MovieRentalProject.Forms
                 MessageBox.Show($"Error updating movie: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            MovieForm movieForm = new MovieForm();
+            movieForm.Show();
+            this.Hide();
+        }
     }
 }
