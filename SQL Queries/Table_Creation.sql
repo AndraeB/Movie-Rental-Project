@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS Employee;
 
 -- Creating Movie table
 CREATE TABLE Movie (
-    MovieID INT Identity(10000,23) PRIMARY KEY NOT NULL,
+    MovieID INT Identity(10000,1) PRIMARY KEY NOT NULL,
     MovieName varchar(30) NOT NULL,
     MovieType nchar(20) NOT NULL,
     DistributionFee float NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE Movie (
     Rating int
 );
 
-CREATE SEQUENCE MovieIDSeq START WITH 1000 INCREMENT BY 1;
+--CREATE SEQUENCE MovieIDSeq START WITH 1000 INCREMENT BY 1;
 
 -- Creating Actor table
 CREATE TABLE Actor (
@@ -91,9 +91,10 @@ CREATE TABLE Emp_Phone (
 
 -- Creating Order table
 CREATE TABLE Ordr (
-    OrderID nchar(4) PRIMARY KEY,
+    OrderID INT Identity(10000,1) PRIMARY KEY NOT NULL,
     CheckoutDateTime datetime,
     ReturnDateTime datetime,
+	MovieName varchar(30),
     CustomerID nchar(4) FOREIGN KEY REFERENCES Customer(CustomerID),
     EmployeeID nchar(4) FOREIGN KEY REFERENCES Employee(EmployeeID)
 );
@@ -101,7 +102,7 @@ CREATE TABLE Ordr (
 -- Creating Movie_Rating table to rate movies by customers
 CREATE TABLE Movie_Rating (
     RatingID nchar(4) PRIMARY KEY,
-    OrderID nchar(4) FOREIGN KEY REFERENCES Ordr(OrderID),
+    OrderID INT FOREIGN KEY REFERENCES Ordr(OrderID),
     MovieID INT FOREIGN KEY REFERENCES Movie(MovieID),
     Rating int
 );
@@ -109,7 +110,7 @@ CREATE TABLE Movie_Rating (
 -- Creating Actor_Rating table to rate actors by customers
 CREATE TABLE Actor_Rating (
     RatingID nchar(4) PRIMARY KEY,
-    OrderID nchar(4) FOREIGN KEY REFERENCES Ordr(OrderID),
+    OrderID INT FOREIGN KEY REFERENCES Ordr(OrderID),
     ActorID nchar(4) FOREIGN KEY REFERENCES Actor(ActorID),
     Rating int
 );
