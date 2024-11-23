@@ -55,6 +55,7 @@
             FinishBtn.TabIndex = 0;
             FinishBtn.Text = "Finish";
             FinishBtn.UseVisualStyleBackColor = true;
+            FinishBtn.Click += FinishBtn_Click;
             // 
             // CancelBtn
             // 
