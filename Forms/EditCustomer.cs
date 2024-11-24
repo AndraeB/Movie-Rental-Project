@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,11 +18,59 @@ namespace MovieRentalProject
     {
         // Coonection string for database
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["MovieRental"].ConnectionString;
-        public EditCustomer()
+        private string custID;
+
+        // Parameterless constructor
+        // i.e. Default instantiation of customer without changing "EditCustomer" everywhere else
+        // Please remove later
+        public EditCustomer() : this("0001") { }
+
+        // Main constructor
+        public EditCustomer(string custID)
         {
             InitializeComponent();
+            this.custID = custID;
+            LoadCustomerDetails();
         }
+        private void LoadCustomerDetails()
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"SELECT FirstName, LastName, EmailAddress, Addr, City, Province, CreditCardNumber 
+                                    FROM Customer 
+                                    WHERE CustomerID = @CustomerID";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@CustomerID", custID);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            {
+                                if (reader.Read())
+                                {
 
+                                    // Populate text boxes with existing customer data
+                                    FirstNmTxtBox.Text = reader["FirstName"].ToString();
+                                    LastNmTxtBox.Text = reader["LastName"].ToString();
+                                    EmailTxtBox.Text = reader["EmailAddress"].ToString();
+                                    AddressTxtBox.Text = reader["Addr"].ToString();
+                                    CityTxtBox.Text = reader["City"].ToString();
+                                    ProvinceTxtBox.Text = reader["Province"].ToString();
+                                    CreditCardTxtBox.Text = reader["CreditCardNumber"].ToString();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading customer details: {ex.Message}");
+            }
+        }
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             CustomerForm customerForm = new CustomerForm();
@@ -38,7 +89,35 @@ namespace MovieRentalProject
             string CustProvince = ProvinceTxtBox.Text;
             string CustCredCard = CreditCardTxtBox.Text;
 
+            // Check if fields are filled
+            if (this.Controls.OfType<TextBox>().Any(tb => string.IsNullOrEmpty(tb.Text)))
+            {
+                MessageBox.Show("All fields must be filled out.");
+                return;
+            }
 
+            // If the error handling is passed then apply changes to the database
+            //ApplyCustomerEdit(CustFirstNm, CustLastNm, CustEmail, CustAddress, CustCity, CustProvince, CustCredCard);
         }
+
+        //private void ApplyCustomerEdit(string FirstNm, string LastNm, string E_Mail, string Addr, string City, string Province, string CreditCard)
+        //{
+        //    try
+        //    {
+        //        // Open connection to database
+        //        using (SqlConnection connection = new SqlConnection(connectionString))
+        //        {
+        //            connection.Open();
+
+        //            // SQL Update Statement
+        //            string query = @""
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Error Updating Data: {ex.Message}");
+        //    }
+        //}
     }
 }
