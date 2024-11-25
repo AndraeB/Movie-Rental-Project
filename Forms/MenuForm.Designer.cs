@@ -32,13 +32,14 @@
             CustomerMaintenance = new Button();
             Rental = new Button();
             Reports = new Button();
+            EditCustBtn = new Button();
             SuspendLayout();
             // 
             // MovieMaintenance
             // 
-            MovieMaintenance.Location = new Point(303, 94);
+            MovieMaintenance.Location = new Point(278, 25);
             MovieMaintenance.Name = "MovieMaintenance";
-            MovieMaintenance.Size = new Size(164, 42);
+            MovieMaintenance.Size = new Size(210, 73);
             MovieMaintenance.TabIndex = 0;
             MovieMaintenance.Text = "Movie Maintenance";
             MovieMaintenance.UseVisualStyleBackColor = true;
@@ -46,9 +47,9 @@
             // 
             // CustomerMaintenance
             // 
-            CustomerMaintenance.Location = new Point(303, 142);
+            CustomerMaintenance.Location = new Point(278, 104);
             CustomerMaintenance.Name = "CustomerMaintenance";
-            CustomerMaintenance.Size = new Size(164, 42);
+            CustomerMaintenance.Size = new Size(210, 73);
             CustomerMaintenance.TabIndex = 1;
             CustomerMaintenance.Text = "Customer Maintenance";
             CustomerMaintenance.UseVisualStyleBackColor = true;
@@ -56,9 +57,9 @@
             // 
             // Rental
             // 
-            Rental.Location = new Point(303, 190);
+            Rental.Location = new Point(278, 183);
             Rental.Name = "Rental";
-            Rental.Size = new Size(164, 42);
+            Rental.Size = new Size(210, 73);
             Rental.TabIndex = 2;
             Rental.Text = "Rental";
             Rental.UseVisualStyleBackColor = true;
@@ -66,19 +67,30 @@
             // 
             // Reports
             // 
-            Reports.Location = new Point(303, 238);
+            Reports.Location = new Point(278, 262);
             Reports.Name = "Reports";
-            Reports.Size = new Size(164, 42);
+            Reports.Size = new Size(210, 73);
             Reports.TabIndex = 3;
             Reports.Text = "Reports";
             Reports.UseVisualStyleBackColor = true;
             Reports.Click += Reports_Click_1;
+            // 
+            // EditCustBtn
+            // 
+            EditCustBtn.Location = new Point(278, 341);
+            EditCustBtn.Name = "EditCustBtn";
+            EditCustBtn.Size = new Size(210, 73);
+            EditCustBtn.TabIndex = 4;
+            EditCustBtn.Text = "Edit Customer";
+            EditCustBtn.UseVisualStyleBackColor = true;
+            EditCustBtn.Click += button1_Click;
             // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(EditCustBtn);
             Controls.Add(Reports);
             Controls.Add(Rental);
             Controls.Add(CustomerMaintenance);
@@ -94,5 +106,6 @@
         private Button CustomerMaintenance;
         private Button Rental;
         private Button Reports;
+        private Button EditCustBtn;
     }
 }
