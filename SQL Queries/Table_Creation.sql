@@ -46,7 +46,7 @@ CREATE TABLE Actor (
 
 -- Creating Customer table
 CREATE TABLE Customer (
-    CustomerID nchar(4) PRIMARY KEY NOT NULL,
+    CustomerID INT Identity(100000,3) PRIMARY KEY NOT NULL,
     LastName varchar(30) NOT NULL,
     FirstName varchar(30) NOT NULL,
     Addr varchar(50) NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE Employee (
 
 -- Creating Cust_Phone table for customer phone numbers
 CREATE TABLE Cust_Phone (
-    CustomerID nchar(4) FOREIGN KEY REFERENCES Customer(CustomerID) NOT NULL,
+    CustomerID int FOREIGN KEY REFERENCES Customer(CustomerID) NOT NULL,
     PhoneNumber nchar(15) NOT NULL,
     PRIMARY KEY (CustomerID, PhoneNumber)
 );
@@ -95,7 +95,7 @@ CREATE TABLE Ordr (
     CheckoutDateTime datetime,
     ReturnDateTime datetime,
 	MovieName varchar(30),
-    CustomerID nchar(4) FOREIGN KEY REFERENCES Customer(CustomerID),
+    CustomerID int FOREIGN KEY REFERENCES Customer(CustomerID),
     EmployeeID nchar(4) FOREIGN KEY REFERENCES Employee(EmployeeID)
 );
 
@@ -124,7 +124,7 @@ CREATE TABLE Appears_in (
 
 CREATE TABLE Queue_up (
     MovieID INT FOREIGN KEY REFERENCES Movie(MovieID),
-    CustomerID nchar(4) FOREIGN KEY REFERENCES Customer(CustomerID),
+    CustomerID int FOREIGN KEY REFERENCES Customer(CustomerID),
 	Date_added datetime,
 );
 

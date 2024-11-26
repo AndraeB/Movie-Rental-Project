@@ -74,16 +74,7 @@
             Reports.Text = "Reports";
             Reports.UseVisualStyleBackColor = true;
             Reports.Click += Reports_Click_1;
-            // 
-            // EditCustBtn
-            // 
-            EditCustBtn.Location = new Point(278, 341);
-            EditCustBtn.Name = "EditCustBtn";
-            EditCustBtn.Size = new Size(210, 73);
-            EditCustBtn.TabIndex = 4;
-            EditCustBtn.Text = "Edit Customer";
-            EditCustBtn.UseVisualStyleBackColor = true;
-            EditCustBtn.Click += button1_Click;
+
             // 
             // MenuForm
             // 
