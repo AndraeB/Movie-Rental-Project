@@ -12,10 +12,10 @@ Insert into Movie (MovieName, MovieType, DistributionFee, NumOfCopies, MovieAvai
 	Values ('Die Hard', 'Action', '3.89', '7', '1','5');
 
 Insert into Movie (MovieName, MovieType, DistributionFee, NumOfCopies, MovieAvailability, Rating)
-	Values ('Die Hard2', 'Action', '3.89', '7', '1','5');
+	Values ('Die Hard 2', 'Action', '3.89', '7', '1','5');
 
 Insert into Movie (MovieName, MovieType, DistributionFee, NumOfCopies, MovieAvailability, Rating)
-	Values ('Die Hard3', 'Action', '3.89', '7', '1','5');
+	Values ('Die Hard 3', 'Action', '3.89', '7', '1','5');
 
 Select * from Movie;
 
@@ -27,3 +27,14 @@ INSERT INTO Customer (CustomerID, LastName, FirstName, Addr, City, Province, Pos
 
 SELECT * from Customer;
 SELECT * from Ordr;
+
+DELETE Actor;
+
+INSERT INTO Actor (ActorID, LastName, FirstName, Gender, DateOfBirth, Age, Rating)
+		VALUES('001','Willis', 'Bruce', 'M', '1955-03-19', '69', '5');
+
+INSERT INTO Actor (ActorID, LastName, FirstName, Gender, DateOfBirth, Age, Rating)
+		VALUES('002','Rickman', 'Alan', 'M', '1946-02-21', '69', '5');
+		
+SELECT * from Actor;
+SELECT * from Appears_in;
