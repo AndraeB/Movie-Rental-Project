@@ -97,27 +97,59 @@ namespace MovieRentalProject
             }
 
             // If the error handling is passed then apply changes to the database
-            //ApplyCustomerEdit(CustFirstNm, CustLastNm, CustEmail, CustAddress, CustCity, CustProvince, CustCredCard);
+            ApplyCustomerEdit(CustFirstNm, CustLastNm, CustEmail, CustAddress, CustCity, CustProvince, CustCredCard);
         }
+        private void ApplyCustomerEdit(string FirstNm, string LastNm, string E_Mail, string Addr, string City, string Province, string CreditCard)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
 
-        //private void ApplyCustomerEdit(string FirstNm, string LastNm, string E_Mail, string Addr, string City, string Province, string CreditCard)
-        //{
-        //    try
-        //    {
-        //        // Open connection to database
-        //        using (SqlConnection connection = new SqlConnection(connectionString))
-        //        {
-        //            connection.Open();
+                    // SQL Update Statement with proper column separation
+                    string query = "UPDATE Customer SET FirstName = @FName, " +
+                                   "LastName = @LName, " +
+                                   "EmailAddress = @Email, " +
+                                   "Addr = @Address, " +
+                                   "City = @City, " +
+                                   "Province = @Province, " +
+                                   "CreditCardNumber = @CredCard";
 
-        //            // SQL Update Statement
-        //            string query = @""
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Add parameters to the command
+                        command.Parameters.AddWithValue("@FName", FirstNm);
+                        command.Parameters.AddWithValue("@LName", LastNm);
+                        command.Parameters.AddWithValue("@Email", E_Mail);
+                        command.Parameters.AddWithValue("@Address", Addr);
+                        command.Parameters.AddWithValue("@City", City);
+                        command.Parameters.AddWithValue("@Province", Province);
+                        command.Parameters.AddWithValue("@CredCard", CreditCard);
 
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error Updating Data: {ex.Message}");
-        //    }
-        //}
+                        // Execute the query
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        // Feedback to the user
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Customer details updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No records were updated. Check the data entered.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"Database Error: {sqlEx.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
