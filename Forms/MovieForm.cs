@@ -22,12 +22,14 @@ namespace MovieRentalProject
         private void SetupDataGridView()
         {
             // Configure the DataGridView
-            dataGridView1.ColumnCount = 5;
+            dataGridView1.ColumnCount = 7;
             dataGridView1.Columns[0].Name = "MovieID";
             dataGridView1.Columns[1].Name = "Title";
             dataGridView1.Columns[2].Name = "Fee";
             dataGridView1.Columns[3].Name = "Type";
             dataGridView1.Columns[4].Name = "Copies";
+            dataGridView1.Columns[5].Name = "Available";
+            dataGridView1.Columns[6].Name = "Rating";
 
             // Optionally, make columns read-only
             foreach (DataGridViewColumn column in dataGridView1.Columns)
@@ -54,7 +56,7 @@ namespace MovieRentalProject
                     connection.Open();
 
                     // Corrected query with proper spacing and formatting
-                    string query = "SELECT MovieID, MovieName, DistributionFee, MovieType, NumOfCopies " +
+                    string query = "SELECT MovieID, MovieName, DistributionFee, MovieType, NumOfCopies, MovieAvailability, Rating " +
                                    "FROM Movie " +
                                    "WHERE MovieName LIKE @SearchTitle + '%'";
 
@@ -74,7 +76,9 @@ namespace MovieRentalProject
                                     reader["MovieName"].ToString(),
                                     reader["DistributionFee"].ToString(),
                                     reader["MovieType"].ToString(),
-                                    reader["NumOfCopies"].ToString()
+                                    reader["NumOfCopies"].ToString(),
+                                    reader["MovieAvailability"].ToString(),
+                                    reader["Rating"].ToString()
                                 );
                             }
                         }

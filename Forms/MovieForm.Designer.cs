@@ -39,6 +39,8 @@
             Fee = new DataGridViewTextBoxColumn();
             Type = new DataGridViewTextBoxColumn();
             Copies = new DataGridViewTextBoxColumn();
+            Available = new DataGridViewTextBoxColumn();
+            Rating = new DataGridViewTextBoxColumn();
             searchbutton = new Button();
             backButton = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -93,8 +95,9 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { MovieID, Title, Fee, Type, Copies });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { MovieID, Title, Fee, Type, Copies, Available, Rating });
             dataGridView1.Location = new Point(220, 22);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
@@ -128,6 +131,16 @@
             // 
             Copies.HeaderText = "Copies";
             Copies.Name = "Copies";
+            // 
+            // Available
+            // 
+            Available.HeaderText = "Available";
+            Available.Name = "Available";
+            // 
+            // Rating
+            // 
+            Rating.HeaderText = "Rating";
+            Rating.Name = "Rating";
             // 
             // searchbutton
             // 
@@ -179,11 +192,13 @@
         private DataGridView dataGridView1;
         private Button searchbutton;
         private DataGridViewTextBoxColumn ID;
+        private Button backButton;
         private DataGridViewTextBoxColumn MovieID;
         private DataGridViewTextBoxColumn Title;
         private DataGridViewTextBoxColumn Fee;
         private DataGridViewTextBoxColumn Type;
         private DataGridViewTextBoxColumn Copies;
-        private Button backButton;
+        private DataGridViewTextBoxColumn Available;
+        private DataGridViewTextBoxColumn Rating;
     }
 }

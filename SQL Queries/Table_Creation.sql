@@ -119,6 +119,7 @@ CREATE TABLE Actor_Rating (
 CREATE TABLE Appears_in (
     MovieID INT FOREIGN KEY REFERENCES Movie(MovieID),
     ActorID nchar(4) FOREIGN KEY REFERENCES Actor(ActorID),
+    PRIMARY KEY (MovieID, ActorID)
 );
 
 CREATE TABLE Queue_up (

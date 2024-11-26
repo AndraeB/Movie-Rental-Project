@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             AddActor = new Label();
-            ActorNameQuery = new CheckedListBox();
-            ActorName = new TextBox();
+            ActorFirstName = new TextBox();
             Cancel = new Button();
             Save = new Button();
             CopiesAdd = new TextBox();
@@ -38,32 +37,38 @@
             FeeAdd = new TextBox();
             MovieMaintenance = new Label();
             TitleAdd = new TextBox();
+            ActorLastName = new TextBox();
+            GoButton = new Button();
+            ActorNameQuery = new DataGridView();
+            ActorID = new DataGridViewTextBoxColumn();
+            FirstName = new DataGridViewTextBoxColumn();
+            LastName = new DataGridViewTextBoxColumn();
+            SelectedNames = new DataGridView();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            add = new Button();
+            remove = new Button();
+            ((System.ComponentModel.ISupportInitialize)ActorNameQuery).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)SelectedNames).BeginInit();
             SuspendLayout();
             // 
             // AddActor
             // 
             AddActor.AutoSize = true;
-            AddActor.Location = new Point(64, 318);
+            AddActor.Location = new Point(52, 229);
             AddActor.Name = "AddActor";
             AddActor.Size = new Size(61, 15);
             AddActor.TabIndex = 22;
             AddActor.Text = "Add Actor";
             // 
-            // ActorNameQuery
+            // ActorFirstName
             // 
-            ActorNameQuery.FormattingEnabled = true;
-            ActorNameQuery.Location = new Point(379, 230);
-            ActorNameQuery.Name = "ActorNameQuery";
-            ActorNameQuery.Size = new Size(330, 202);
-            ActorNameQuery.TabIndex = 21;
-            // 
-            // ActorName
-            // 
-            ActorName.Location = new Point(151, 315);
-            ActorName.Name = "ActorName";
-            ActorName.PlaceholderText = "Name";
-            ActorName.Size = new Size(165, 23);
-            ActorName.TabIndex = 20;
+            ActorFirstName.Location = new Point(26, 269);
+            ActorFirstName.Name = "ActorFirstName";
+            ActorFirstName.PlaceholderText = "First Name";
+            ActorFirstName.Size = new Size(123, 23);
+            ActorFirstName.TabIndex = 20;
             // 
             // Cancel
             // 
@@ -131,14 +136,118 @@
             TitleAdd.Size = new Size(330, 29);
             TitleAdd.TabIndex = 13;
             // 
+            // ActorLastName
+            // 
+            ActorLastName.Location = new Point(170, 269);
+            ActorLastName.Name = "ActorLastName";
+            ActorLastName.PlaceholderText = "Last Name";
+            ActorLastName.Size = new Size(123, 23);
+            ActorLastName.TabIndex = 24;
+            // 
+            // GoButton
+            // 
+            GoButton.Font = new Font("Segoe UI", 6F, FontStyle.Regular, GraphicsUnit.Point);
+            GoButton.Location = new Point(309, 269);
+            GoButton.Name = "GoButton";
+            GoButton.Size = new Size(31, 23);
+            GoButton.TabIndex = 25;
+            GoButton.Text = "GO";
+            GoButton.UseVisualStyleBackColor = true;
+            GoButton.Click += GoButton_Click;
+            // 
+            // ActorNameQuery
+            // 
+            ActorNameQuery.AllowUserToAddRows = false;
+            ActorNameQuery.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ActorNameQuery.Columns.AddRange(new DataGridViewColumn[] { ActorID, FirstName, LastName });
+            ActorNameQuery.Location = new Point(39, 298);
+            ActorNameQuery.Name = "ActorNameQuery";
+            ActorNameQuery.RowTemplate.Height = 25;
+            ActorNameQuery.Size = new Size(240, 150);
+            ActorNameQuery.TabIndex = 26;
+            // 
+            // ActorID
+            // 
+            ActorID.HeaderText = "ActorID";
+            ActorID.Name = "ActorID";
+            ActorID.Visible = false;
+            // 
+            // FirstName
+            // 
+            FirstName.HeaderText = "First Name";
+            FirstName.Name = "FirstName";
+            // 
+            // LastName
+            // 
+            LastName.HeaderText = "Last Name";
+            LastName.Name = "LastName";
+            // 
+            // SelectedNames
+            // 
+            SelectedNames.AllowUserToAddRows = false;
+            SelectedNames.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            SelectedNames.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
+            SelectedNames.Location = new Point(379, 248);
+            SelectedNames.Name = "SelectedNames";
+            SelectedNames.ReadOnly = true;
+            SelectedNames.RowTemplate.Height = 25;
+            SelectedNames.Size = new Size(330, 190);
+            SelectedNames.TabIndex = 27;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.HeaderText = "ActorID";
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
+            dataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.HeaderText = "First Name";
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.HeaderText = "Last Name";
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // add
+            // 
+            add.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            add.Location = new Point(309, 352);
+            add.Name = "add";
+            add.Size = new Size(31, 23);
+            add.TabIndex = 28;
+            add.Text = ">";
+            add.UseVisualStyleBackColor = true;
+            add.Click += add_Click;
+            // 
+            // remove
+            // 
+            remove.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            remove.Location = new Point(309, 381);
+            remove.Name = "remove";
+            remove.Size = new Size(31, 23);
+            remove.TabIndex = 29;
+            remove.Text = "<";
+            remove.UseVisualStyleBackColor = true;
+            remove.Click += remove_Click;
+            // 
             // EditMovie
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(AddActor);
+            Controls.Add(remove);
+            Controls.Add(add);
+            Controls.Add(SelectedNames);
             Controls.Add(ActorNameQuery);
-            Controls.Add(ActorName);
+            Controls.Add(GoButton);
+            Controls.Add(ActorLastName);
+            Controls.Add(AddActor);
+            Controls.Add(ActorFirstName);
             Controls.Add(Cancel);
             Controls.Add(Save);
             Controls.Add(CopiesAdd);
@@ -148,6 +257,8 @@
             Controls.Add(TitleAdd);
             Name = "EditMovie";
             Text = "EditMovie";
+            ((System.ComponentModel.ISupportInitialize)ActorNameQuery).EndInit();
+            ((System.ComponentModel.ISupportInitialize)SelectedNames).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -155,8 +266,7 @@
         #endregion
 
         private Label AddActor;
-        private CheckedListBox ActorNameQuery;
-        private TextBox ActorName;
+        private TextBox ActorFirstName;
         private Button Cancel;
         private Button Save;
         private TextBox CopiesAdd;
@@ -164,5 +274,17 @@
         private TextBox FeeAdd;
         private Label MovieMaintenance;
         private TextBox TitleAdd;
+        private TextBox ActorLastName;
+        private Button GoButton;
+        private DataGridView ActorNameQuery;
+        private DataGridViewTextBoxColumn ActorID;
+        private DataGridViewTextBoxColumn FirstName;
+        private DataGridViewTextBoxColumn LastName;
+        private DataGridView SelectedNames;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private Button add;
+        private Button remove;
     }
 }
