@@ -101,7 +101,7 @@
             dataGridView1.Location = new Point(220, 22);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(568, 404);
+            dataGridView1.Size = new Size(586, 404);
             dataGridView1.TabIndex = 6;
             // 
             // MovieID

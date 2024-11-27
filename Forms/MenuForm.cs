@@ -45,11 +45,6 @@ namespace MovieRentalProject
             this.Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            EditCustomer edt = new EditCustomer();
-            edt.Show();
-            this.Hide();
-        }
+       
     }
 }
