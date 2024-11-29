@@ -28,32 +28,72 @@
         /// </summary>
         private void InitializeComponent()
         {
-            backButton = new Button();
+            ReportSelector = new ComboBox();
+            GenerateButton = new Button();
+            reportsGrid = new DataGridView();
+            BackButton = new Button();
+            ((System.ComponentModel.ISupportInitialize)reportsGrid).BeginInit();
             SuspendLayout();
             // 
-            // backButton
+            // ReportSelector
             // 
-            backButton.Location = new Point(343, 214);
-            backButton.Name = "backButton";
-            backButton.Size = new Size(115, 23);
-            backButton.TabIndex = 9;
-            backButton.Text = "BACK";
-            backButton.UseVisualStyleBackColor = true;
-            backButton.Click += backButton_Click;
+            ReportSelector.Items.AddRange(new object[] { "Movie Performance", "Inventory Analysis", "Revenue-Time Analysis", "Pricing Suggestions", "Actor Popularity Analysis" });
+            ReportSelector.Location = new Point(32, 31);
+            ReportSelector.Name = "ReportSelector";
+            ReportSelector.Size = new Size(320, 23);
+            ReportSelector.TabIndex = 10;
+            ReportSelector.Text = "Select Report Type";
+            ReportSelector.SelectedIndexChanged += ReportSelector_SelectedIndexChanged;
+            // 
+            // GenerateButton
+            // 
+            GenerateButton.Location = new Point(373, 31);
+            GenerateButton.Name = "GenerateButton";
+            GenerateButton.Size = new Size(104, 23);
+            GenerateButton.TabIndex = 12;
+            GenerateButton.Text = "Generate Report";
+            GenerateButton.UseVisualStyleBackColor = true;
+            GenerateButton.Click += GenerateButton_Click;
+            // 
+            // reportsGrid
+            // 
+            reportsGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            reportsGrid.Location = new Point(32, 77);
+            reportsGrid.Name = "reportsGrid";
+            reportsGrid.RowTemplate.Height = 25;
+            reportsGrid.Size = new Size(736, 319);
+            reportsGrid.TabIndex = 13;
+            reportsGrid.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // BackButton
+            // 
+            BackButton.Location = new Point(653, 415);
+            BackButton.Name = "BackButton";
+            BackButton.Size = new Size(115, 23);
+            BackButton.TabIndex = 14;
+            BackButton.Text = "BACK";
+            BackButton.UseVisualStyleBackColor = true;
+            BackButton.Click += BackButton_Click;
             // 
             // ReportsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(backButton);
+            Controls.Add(BackButton);
+            Controls.Add(reportsGrid);
+            Controls.Add(GenerateButton);
+            Controls.Add(ReportSelector);
             Name = "ReportsForm";
             Text = "ReportsForm";
+            ((System.ComponentModel.ISupportInitialize)reportsGrid).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Button backButton;
+        private ComboBox ReportSelector;
+        private Button GenerateButton;
+        private DataGridView reportsGrid;
+        private Button BackButton;
     }
 }
