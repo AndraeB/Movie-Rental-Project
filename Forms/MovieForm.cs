@@ -106,7 +106,7 @@ namespace MovieRentalProject
                 string selectedMovieID = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
 
                 // Open EditMovie form and pass the selected MovieID
-                EditMovie editMovie = new EditMovie(selectedMovieID);
+                EditMovie editMovie = new EditMovie(movieID: selectedMovieID);
                 editMovie.Show();
                 this.Hide();
             }
