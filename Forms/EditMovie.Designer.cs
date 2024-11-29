@@ -138,7 +138,7 @@
             // 
             // ActorLastName
             // 
-            ActorLastName.Location = new Point(170, 269);
+            ActorLastName.Location = new Point(155, 269);
             ActorLastName.Name = "ActorLastName";
             ActorLastName.PlaceholderText = "Last Name";
             ActorLastName.Size = new Size(123, 23);
@@ -147,9 +147,9 @@
             // GoButton
             // 
             GoButton.Font = new Font("Segoe UI", 6F, FontStyle.Regular, GraphicsUnit.Point);
-            GoButton.Location = new Point(309, 269);
+            GoButton.Location = new Point(284, 269);
             GoButton.Name = "GoButton";
-            GoButton.Size = new Size(31, 23);
+            GoButton.Size = new Size(79, 23);
             GoButton.TabIndex = 25;
             GoButton.Text = "GO";
             GoButton.UseVisualStyleBackColor = true;
