@@ -32,7 +32,6 @@
             CustomerMaintenance = new Button();
             Rental = new Button();
             Reports = new Button();
-            EditCustBtn = new Button();
             SuspendLayout();
             // 
             // MovieMaintenance
@@ -74,14 +73,12 @@
             Reports.Text = "Reports";
             Reports.UseVisualStyleBackColor = true;
             Reports.Click += Reports_Click_1;
-
             // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(EditCustBtn);
             Controls.Add(Reports);
             Controls.Add(Rental);
             Controls.Add(CustomerMaintenance);
@@ -97,6 +94,5 @@
         private Button CustomerMaintenance;
         private Button Rental;
         private Button Reports;
-        private Button EditCustBtn;
     }
 }

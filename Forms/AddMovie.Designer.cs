@@ -201,18 +201,18 @@
             // 
             // GoButton
             // 
-            GoButton.Font = new Font("Segoe UI", 6F, FontStyle.Regular, GraphicsUnit.Point);
-            GoButton.Location = new Point(297, 259);
+            GoButton.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            GoButton.Location = new Point(273, 259);
             GoButton.Name = "GoButton";
-            GoButton.Size = new Size(31, 23);
+            GoButton.Size = new Size(88, 23);
             GoButton.TabIndex = 33;
-            GoButton.Text = "GO";
+            GoButton.Text = "SEARCH";
             GoButton.UseVisualStyleBackColor = true;
             GoButton.Click += GoButton_Click;
             // 
             // ActorLastName
             // 
-            ActorLastName.Location = new Point(158, 259);
+            ActorLastName.Location = new Point(144, 259);
             ActorLastName.Name = "ActorLastName";
             ActorLastName.PlaceholderText = "Last Name";
             ActorLastName.Size = new Size(123, 23);
