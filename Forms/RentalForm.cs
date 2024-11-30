@@ -15,6 +15,7 @@ namespace MovieRentalProject
             SetupDataGridViews();  // Call to setup DataGridView columns
             GoButton.Click += GoButton_Click;  // Hook up GoButton click event
             Customer.SelectionChanged += Customer_SelectionChanged;  // Handle selection change in Customer DataGridView
+            Queue.SelectionChanged += Queue_SelectionChanged;  // Handle selection change in Queue DataGridView
         }
 
         private void SetupDataGridViews()
@@ -134,10 +135,10 @@ namespace MovieRentalProject
             if (Customer.SelectedRows.Count > 0)
             {
                 // Get the selected CustomerID
-                string selectedCustomerID = Customer.SelectedRows[0].Cells["CustomerID"].Value.ToString();
+                Global.GlobalCustID = Customer.SelectedRows[0].Cells["CustomerID"].Value.ToString();
 
                 // Call method to query Queue_Up and Movie tables
-                PopulateQueue(selectedCustomerID);
+                PopulateQueue(Global.GlobalCustID);
             }
         }
 
@@ -225,11 +226,100 @@ namespace MovieRentalProject
             }
         }
 
+        private void Queue_SelectionChanged(object sender, EventArgs e)
+        {
+            // Check if a row is selected
+            if (Queue.SelectedRows.Count > 0)
+            {
+                // Get the selected MovieName
+                Global.GlobalMovieName = Queue.SelectedRows[0].Cells["Movie Name"].Value.ToString();
+                MessageBox.Show(Global.GlobalMovieName);
+            }
+        }
+
         private void Cancel_Click(object sender, EventArgs e)
         {
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
             this.Hide();
+        }
+
+        private void Process_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Global.GlobalMovieName))
+            {
+                MessageBox.Show("Movie must be selected.",
+                    "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DateTime CheckoutDateTime = DateTime.UtcNow;
+            DateTime ReturnDateTime = CheckoutDateTime.AddDays(14);
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Insert the order
+                    string insertOrderQuery = @"
+                INSERT INTO Ordr (CheckoutDateTime, ReturnDateTime, MovieName, CustomerID, EmployeeID)
+                VALUES (@CheckoutDateTime, @ReturnDateTime, @MovieName, @CustomerID, @EmployeeID);";
+
+                    using (SqlCommand command = new SqlCommand(insertOrderQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@CheckoutDateTime", CheckoutDateTime.ToString());
+                        command.Parameters.AddWithValue("@ReturnDateTime", ReturnDateTime.ToString());
+                        command.Parameters.AddWithValue("@MovieName", Global.GlobalMovieName);
+                        command.Parameters.AddWithValue("@CustomerID", Global.GlobalCustID);
+                        command.Parameters.AddWithValue("@EmployeeID", Global.GlobalEmpID);
+                        command.ExecuteScalar();
+                    }
+
+                    // Get MovieID
+                    string movieIDQuery = @"
+                SELECT MovieID FROM Movie
+                WHERE MovieName = @MovieName;";
+                    
+                    using (SqlCommand command = new SqlCommand(movieIDQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@MovieName", Global.GlobalMovieName);
+                        
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                Global.GlobalMovieID = reader["MovieID"].ToString();
+                            }
+                        }
+                    }
+
+                    // Delete Movie from Customer Queue
+                    string deleteQueueQuery = @"
+                DELETE FROM Queue_up
+                WHERE MovieID = @MovieID AND CustomerID = @CustomerID;";
+
+                    using (SqlCommand command = new SqlCommand(deleteQueueQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@MovieID", Global.GlobalMovieID);
+                        command.Parameters.AddWithValue("@CustomerID", Global.GlobalCustID);
+                        command.ExecuteScalar();
+                    }
+
+                    // Refresh Queue
+                    PopulateQueue(Global.GlobalCustID);
+                    
+                    // Prevent Double Inserts
+                    Global.GlobalMovieName = "";
+
+                    MessageBox.Show("Order added successfully!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error processing order: {ex.Message}");
+            }
         }
     }
 }
