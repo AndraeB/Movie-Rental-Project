@@ -11,11 +11,32 @@ namespace MovieRentalProject
     static class Global
     {
         private static string _globalEmpID = "";
+        private static string _globalCustID = "";
+        private static string _globalMovieID = "";
+        private static string _globalMovieName = "";
 
         public static string GlobalEmpID
         {
             get { return _globalEmpID; }
             set { _globalEmpID = value; }
+        }
+
+        public static string GlobalCustID
+        {
+            get { return _globalCustID; }
+            set { _globalCustID = value; }
+        }
+
+        public static string GlobalMovieID
+        {
+            get { return _globalMovieID; }
+            set { _globalMovieID = value; }
+        }
+
+        public static string GlobalMovieName
+        {
+            get { return _globalMovieName; }
+            set { _globalMovieName = value; }
         }
     }
 
