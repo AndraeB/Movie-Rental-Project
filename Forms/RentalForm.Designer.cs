@@ -66,6 +66,7 @@
             Process.TabIndex = 18;
             Process.Text = "PROCESS";
             Process.UseVisualStyleBackColor = true;
+            Process.Click += Process_Click;
             // 
             // rentalTitle
             // 

@@ -1,3 +1,5 @@
+USE MovieRental;
+
 -- Clear existing data (in correct order due to foreign key constraints)
 DELETE FROM Queue_up;
 DELETE FROM Appears_in;
@@ -5,6 +7,7 @@ DELETE FROM Movie_Rating;
 DELETE FROM Actor_Rating;
 DELETE FROM Ordr;
 DELETE FROM Employee;
+DELETE FROM Cust_Phone;
 DELETE FROM Customer;
 DELETE FROM Movie;
 DELETE FROM Actor;
@@ -46,11 +49,11 @@ SELECT @JurassicPark = MovieID FROM Movie WHERE MovieName = 'Jurassic Park';
 SELECT @Titanic = MovieID FROM Movie WHERE MovieName = 'Titanic';
 
 -- Populate Customer table
-INSERT INTO Customer (CustomerID, LastName, FirstName, Addr, City, Province, PostalCode, EmailAddress, AccountNumber, AccountDateCreation, CreditCardNumber, RentalHistory, Rating)
+INSERT INTO Customer (LastName, FirstName, Addr, City, Province, PostalCode, EmailAddress, AccountNumber, AccountDateCreation, CreditCardNumber, RentalHistory, Rating)
 VALUES 
-    ('0001', 'Doe', 'John', '12345 Main St', 'Edmonton', 'AB', 'T5B1A1', 'john@email.com', '67890', '2024-01-01', '1111222233334444', null, 4),
-    ('0002', 'Smith', 'Jane', '67890 Oak Rd', 'Calgary', 'AB', 'T2P2G3', 'jane@email.com', '12345', '2024-01-15', '2222333344445555', null, 5),
-    ('0003', 'Brown', 'Mike', '13579 Pine Ave', 'Edmonton', 'AB', 'T6C3M2', 'mike@email.com', '24680', '2024-02-01', '3333444455556666', null, 3);
+    ('Doe', 'John', '12345 Main St', 'Edmonton', 'AB', 'T5B1A1', 'john@email.com', '67890', '2024-01-01', '1111222233334444', null, 4),
+    ('Smith', 'Jane', '67890 Oak Rd', 'Calgary', 'AB', 'T2P2G3', 'jane@email.com', '12345', '2024-01-15', '2222333344445555', null, 5),
+    ('Brown', 'Mike', '13579 Pine Ave', 'Edmonton', 'AB', 'T6C3M2', 'mike@email.com', '24680', '2024-02-01', '3333444455556666', null, 3);
 
 -- Populate Actor table
 INSERT INTO Actor (ActorID, LastName, FirstName, Gender, DateOfBirth, Age, Rating)
@@ -77,24 +80,24 @@ VALUES
 -- Populate Orders with various dates for time-based analysis
 INSERT INTO Ordr (CheckoutDateTime, ReturnDateTime, MovieName, CustomerID, EmployeeID)
 VALUES 
-    ('2024-01-15', '2024-01-18', 'Die Hard', '0001', '001'),
-    ('2024-01-20', '2024-01-23', 'Inception', '0002', '001'),
-    ('2024-02-01', '2024-02-04', 'Toy Story', '0003', '002'),
-    ('2024-02-15', '2024-02-18', 'Die Hard', '0002', '002'),
-    ('2024-03-01', '2024-03-04', 'The Godfather', '0001', '003'),
-    ('2024-03-15', '2024-03-18', 'Jurassic Park', '0003', '001'),
-    ('2024-03-20', '2024-03-23', 'Die Hard 2', '0001', '002');
+    ('2024-01-15', '2024-01-18', 'Die Hard', '10000', '001'),
+    ('2024-01-20', '2024-01-23', 'Inception', '10001', '001'),
+    ('2024-02-01', '2024-02-04', 'Toy Story', '10002', '002'),
+    ('2024-02-15', '2024-02-18', 'Die Hard', '10001', '002'),
+    ('2024-03-01', '2024-03-04', 'The Godfather', '10000', '003'),
+    ('2024-03-15', '2024-03-18', 'Jurassic Park', '10002', '001'),
+    ('2024-03-20', '2024-03-23', 'Die Hard 2', '10000', '002');
 
 -- Store OrderIDs for reference
 DECLARE @Order1 int, @Order2 int, @Order3 int, @Order4 int, @Order5 int, @Order6 int, @Order7 int;
 
-SELECT @Order1 = OrderID FROM Ordr WHERE CustomerID = '0001' AND MovieName = 'Die Hard';
-SELECT @Order2 = OrderID FROM Ordr WHERE CustomerID = '0002' AND MovieName = 'Inception';
-SELECT @Order3 = OrderID FROM Ordr WHERE CustomerID = '0003' AND MovieName = 'Toy Story';
-SELECT @Order4 = OrderID FROM Ordr WHERE CustomerID = '0002' AND MovieName = 'Die Hard';
-SELECT @Order5 = OrderID FROM Ordr WHERE CustomerID = '0001' AND MovieName = 'The Godfather';
-SELECT @Order6 = OrderID FROM Ordr WHERE CustomerID = '0003' AND MovieName = 'Jurassic Park';
-SELECT @Order7 = OrderID FROM Ordr WHERE CustomerID = '0001' AND MovieName = 'Die Hard 2';
+SELECT @Order1 = OrderID FROM Ordr WHERE CustomerID = '10000' AND MovieName = 'Die Hard';
+SELECT @Order2 = OrderID FROM Ordr WHERE CustomerID = '10001' AND MovieName = 'Inception';
+SELECT @Order3 = OrderID FROM Ordr WHERE CustomerID = '10002' AND MovieName = 'Toy Story';
+SELECT @Order4 = OrderID FROM Ordr WHERE CustomerID = '10001' AND MovieName = 'Die Hard';
+SELECT @Order5 = OrderID FROM Ordr WHERE CustomerID = '10000' AND MovieName = 'The Godfather';
+SELECT @Order6 = OrderID FROM Ordr WHERE CustomerID = '10002' AND MovieName = 'Jurassic Park';
+SELECT @Order7 = OrderID FROM Ordr WHERE CustomerID = '10000' AND MovieName = 'Die Hard 2';
 
 -- Populate Movie_Rating table using stored OrderIDs and MovieIDs
 INSERT INTO Movie_Rating (RatingID, OrderID, MovieID, Rating)
@@ -118,9 +121,16 @@ VALUES
 -- Populate Queue_up table using stored MovieIDs
 INSERT INTO Queue_up (MovieID, CustomerID, Date_added)
 VALUES
-    (@Notebook, '0001', '2024-03-25'),     -- Customer waiting for The Notebook
-    (@Shining, '0002', '2024-03-24'),      -- Customer waiting for The Shining
-    (@Inception, '0003', '2024-03-23');    -- Customer waiting for Inception
+    (@Notebook, '10000', '2024-03-25'),     -- Customer waiting for The Notebook
+    (@Shining, '10001', '2024-03-24'),      -- Customer waiting for The Shining
+    (@Godfather, '10000', '2024-03-25'),     -- Customer waiting for The Godfather
+    (@Inception, '10002', '2024-03-23');    -- Customer waiting for Inception
+
+INSERT INTO Cust_Phone (CustomerID, PhoneNumber)
+VALUES
+	('10000', '1357924680'),
+	('10001', '1234567890'),
+	('10002', '0987654321');
 
 -- Verify data was inserted properly
 SELECT 'Movies' as TableName, COUNT(*) as Count FROM Movie

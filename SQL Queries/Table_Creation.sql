@@ -46,7 +46,7 @@ CREATE TABLE Actor (
 
 -- Creating Customer table
 CREATE TABLE Customer (
-    CustomerID INT Identity(100000,3) PRIMARY KEY NOT NULL,
+    CustomerID INT Identity(10000,1) PRIMARY KEY NOT NULL,
     LastName varchar(30) NOT NULL,
     FirstName varchar(30) NOT NULL,
     Addr varchar(50) NOT NULL,
