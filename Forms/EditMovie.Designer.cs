@@ -56,15 +56,16 @@
             // AddActor
             // 
             AddActor.AutoSize = true;
-            AddActor.Location = new Point(52, 229);
+            AddActor.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            AddActor.Location = new Point(686, 9);
             AddActor.Name = "AddActor";
-            AddActor.Size = new Size(61, 15);
+            AddActor.Size = new Size(102, 28);
             AddActor.TabIndex = 22;
             AddActor.Text = "Add Actor";
             // 
             // ActorFirstName
             // 
-            ActorFirstName.Location = new Point(26, 269);
+            ActorFirstName.Location = new Point(536, 46);
             ActorFirstName.Name = "ActorFirstName";
             ActorFirstName.PlaceholderText = "First Name";
             ActorFirstName.Size = new Size(123, 23);
@@ -72,9 +73,9 @@
             // 
             // Cancel
             // 
-            Cancel.Location = new Point(116, 132);
+            Cancel.Location = new Point(12, 385);
             Cancel.Name = "Cancel";
-            Cancel.Size = new Size(75, 23);
+            Cancel.Size = new Size(120, 50);
             Cancel.TabIndex = 19;
             Cancel.Text = "CANCEL";
             Cancel.UseVisualStyleBackColor = true;
@@ -82,9 +83,9 @@
             // 
             // Save
             // 
-            Save.Location = new Point(116, 76);
+            Save.Location = new Point(668, 388);
             Save.Name = "Save";
-            Save.Size = new Size(75, 23);
+            Save.Size = new Size(120, 50);
             Save.TabIndex = 18;
             Save.Text = "SAVE";
             Save.UseVisualStyleBackColor = true;
@@ -93,16 +94,16 @@
             // CopiesAdd
             // 
             CopiesAdd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CopiesAdd.Location = new Point(379, 179);
+            CopiesAdd.Location = new Point(12, 110);
             CopiesAdd.Name = "CopiesAdd";
             CopiesAdd.PlaceholderText = "Change Copies";
-            CopiesAdd.Size = new Size(330, 29);
+            CopiesAdd.Size = new Size(151, 29);
             CopiesAdd.TabIndex = 17;
             // 
             // TypeAdd
             // 
             TypeAdd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            TypeAdd.Location = new Point(379, 126);
+            TypeAdd.Location = new Point(12, 75);
             TypeAdd.Name = "TypeAdd";
             TypeAdd.PlaceholderText = "Change Type";
             TypeAdd.Size = new Size(330, 29);
@@ -111,17 +112,17 @@
             // FeeAdd
             // 
             FeeAdd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            FeeAdd.Location = new Point(379, 70);
+            FeeAdd.Location = new Point(169, 110);
             FeeAdd.Name = "FeeAdd";
             FeeAdd.PlaceholderText = "Change Fee";
-            FeeAdd.Size = new Size(330, 29);
+            FeeAdd.Size = new Size(173, 29);
             FeeAdd.TabIndex = 15;
             // 
             // MovieMaintenance
             // 
             MovieMaintenance.AutoSize = true;
             MovieMaintenance.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            MovieMaintenance.Location = new Point(64, 19);
+            MovieMaintenance.Location = new Point(12, 9);
             MovieMaintenance.Name = "MovieMaintenance";
             MovieMaintenance.Size = new Size(184, 28);
             MovieMaintenance.TabIndex = 14;
@@ -130,7 +131,7 @@
             // TitleAdd
             // 
             TitleAdd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            TitleAdd.Location = new Point(379, 22);
+            TitleAdd.Location = new Point(12, 40);
             TitleAdd.Name = "TitleAdd";
             TitleAdd.PlaceholderText = "Change Title";
             TitleAdd.Size = new Size(330, 29);
@@ -138,7 +139,7 @@
             // 
             // ActorLastName
             // 
-            ActorLastName.Location = new Point(155, 269);
+            ActorLastName.Location = new Point(665, 46);
             ActorLastName.Name = "ActorLastName";
             ActorLastName.PlaceholderText = "Last Name";
             ActorLastName.Size = new Size(123, 23);
@@ -146,12 +147,12 @@
             // 
             // GoButton
             // 
-            GoButton.Font = new Font("Segoe UI", 6F, FontStyle.Regular, GraphicsUnit.Point);
-            GoButton.Location = new Point(284, 269);
+            GoButton.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            GoButton.Location = new Point(665, 89);
             GoButton.Name = "GoButton";
-            GoButton.Size = new Size(79, 23);
+            GoButton.Size = new Size(120, 50);
             GoButton.TabIndex = 25;
-            GoButton.Text = "GO";
+            GoButton.Text = "SEARCH";
             GoButton.UseVisualStyleBackColor = true;
             GoButton.Click += GoButton_Click;
             // 
@@ -160,10 +161,10 @@
             ActorNameQuery.AllowUserToAddRows = false;
             ActorNameQuery.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ActorNameQuery.Columns.AddRange(new DataGridViewColumn[] { ActorID, FirstName, LastName });
-            ActorNameQuery.Location = new Point(39, 298);
+            ActorNameQuery.Location = new Point(458, 145);
             ActorNameQuery.Name = "ActorNameQuery";
             ActorNameQuery.RowTemplate.Height = 25;
-            ActorNameQuery.Size = new Size(240, 150);
+            ActorNameQuery.Size = new Size(330, 234);
             ActorNameQuery.TabIndex = 26;
             // 
             // ActorID
@@ -187,11 +188,11 @@
             SelectedNames.AllowUserToAddRows = false;
             SelectedNames.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             SelectedNames.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
-            SelectedNames.Location = new Point(379, 248);
+            SelectedNames.Location = new Point(12, 145);
             SelectedNames.Name = "SelectedNames";
             SelectedNames.ReadOnly = true;
             SelectedNames.RowTemplate.Height = 25;
-            SelectedNames.Size = new Size(330, 190);
+            SelectedNames.Size = new Size(330, 234);
             SelectedNames.TabIndex = 27;
             // 
             // dataGridViewTextBoxColumn1
@@ -216,22 +217,22 @@
             // add
             // 
             add.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            add.Location = new Point(309, 352);
+            add.Location = new Point(348, 194);
             add.Name = "add";
-            add.Size = new Size(31, 23);
+            add.Size = new Size(104, 50);
             add.TabIndex = 28;
-            add.Text = ">";
+            add.Text = "ADD";
             add.UseVisualStyleBackColor = true;
             add.Click += add_Click;
             // 
             // remove
             // 
             remove.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            remove.Location = new Point(309, 381);
+            remove.Location = new Point(348, 250);
             remove.Name = "remove";
-            remove.Size = new Size(31, 23);
+            remove.Size = new Size(104, 53);
             remove.TabIndex = 29;
-            remove.Text = "<";
+            remove.Text = "REMOVE";
             remove.UseVisualStyleBackColor = true;
             remove.Click += remove_Click;
             // 

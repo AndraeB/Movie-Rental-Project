@@ -50,9 +50,9 @@
             // 
             // Cancel
             // 
-            Cancel.Location = new Point(42, 224);
+            Cancel.Location = new Point(12, 388);
             Cancel.Name = "Cancel";
-            Cancel.Size = new Size(75, 23);
+            Cancel.Size = new Size(120, 50);
             Cancel.TabIndex = 19;
             Cancel.Text = "CANCEL";
             Cancel.UseVisualStyleBackColor = true;
@@ -60,9 +60,9 @@
             // 
             // Process
             // 
-            Process.Location = new Point(42, 144);
+            Process.Location = new Point(668, 388);
             Process.Name = "Process";
-            Process.Size = new Size(75, 23);
+            Process.Size = new Size(120, 50);
             Process.TabIndex = 18;
             Process.Text = "PROCESS";
             Process.UseVisualStyleBackColor = true;
@@ -72,7 +72,7 @@
             // 
             rentalTitle.AutoSize = true;
             rentalTitle.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            rentalTitle.Location = new Point(26, 34);
+            rentalTitle.Location = new Point(12, 9);
             rentalTitle.Name = "rentalTitle";
             rentalTitle.Size = new Size(117, 28);
             rentalTitle.TabIndex = 14;
@@ -81,7 +81,7 @@
             // CustName
             // 
             CustName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            CustName.Location = new Point(221, 33);
+            CustName.Location = new Point(12, 40);
             CustName.Name = "CustName";
             CustName.PlaceholderText = "First Name";
             CustName.Size = new Size(143, 29);
@@ -89,18 +89,18 @@
             // 
             // GoButton
             // 
-            GoButton.Location = new Point(370, 72);
+            GoButton.Location = new Point(161, 89);
             GoButton.Name = "GoButton";
-            GoButton.Size = new Size(40, 23);
+            GoButton.Size = new Size(120, 50);
             GoButton.TabIndex = 20;
-            GoButton.Text = "GO";
+            GoButton.Text = "SEARCH";
             GoButton.UseVisualStyleBackColor = true;
             GoButton.Click += GoButton_Click;
             // 
             // Phone
             // 
             Phone.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Phone.Location = new Point(221, 99);
+            Phone.Location = new Point(12, 110);
             Phone.Name = "Phone";
             Phone.PlaceholderText = "Phone Number";
             Phone.Size = new Size(143, 29);
@@ -111,10 +111,10 @@
             Customer.AllowUserToAddRows = false;
             Customer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             Customer.Columns.AddRange(new DataGridViewColumn[] { Account, Name, PhoneNum, CustomerID });
-            Customer.Location = new Point(430, 17);
+            Customer.Location = new Point(12, 154);
             Customer.Name = "Customer";
             Customer.RowTemplate.Height = 25;
-            Customer.Size = new Size(358, 124);
+            Customer.Size = new Size(343, 228);
             Customer.TabIndex = 22;
             // 
             // Account
@@ -141,7 +141,7 @@
             // Last
             // 
             Last.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            Last.Location = new Point(221, 68);
+            Last.Location = new Point(12, 75);
             Last.Name = "Last";
             Last.PlaceholderText = "Last Name";
             Last.Size = new Size(143, 29);
@@ -152,10 +152,10 @@
             Queue.AllowUserToAddRows = false;
             Queue.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             Queue.Columns.AddRange(new DataGridViewColumn[] { Title, Fee, Available });
-            Queue.Location = new Point(328, 183);
+            Queue.Location = new Point(361, 12);
             Queue.Name = "Queue";
             Queue.RowTemplate.Height = 25;
-            Queue.Size = new Size(460, 238);
+            Queue.Size = new Size(427, 370);
             Queue.TabIndex = 24;
             // 
             // Title
@@ -187,7 +187,7 @@
             Controls.Add(Process);
             Controls.Add(rentalTitle);
             Controls.Add(CustName);
-           
+            //Name = "RentalForm";
             Text = "RentalForm";
             ((System.ComponentModel.ISupportInitialize)Customer).EndInit();
             ((System.ComponentModel.ISupportInitialize)Queue).EndInit();

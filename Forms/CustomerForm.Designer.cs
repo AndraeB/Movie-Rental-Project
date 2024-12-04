@@ -42,9 +42,9 @@ namespace MovieRentalProject
             // 
             // backButton
             // 
-            backButton.Location = new Point(12, 352);
+            backButton.Location = new Point(12, 388);
             backButton.Name = "backButton";
-            backButton.Size = new Size(115, 23);
+            backButton.Size = new Size(120, 50);
             backButton.TabIndex = 9;
             backButton.Text = "BACK";
             backButton.UseVisualStyleBackColor = true;
@@ -53,35 +53,36 @@ namespace MovieRentalProject
             // label1
             // 
             label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(12, 9);
             label1.Name = "label1";
-            label1.Size = new Size(129, 15);
+            label1.Size = new Size(254, 28);
             label1.TabIndex = 10;
-            label1.Text = "customer maintenance";
+            label1.Text = "CUSTOMER MAINTENANCE";
             // 
             // customerDataViewGrid
             // 
             customerDataViewGrid.AllowUserToAddRows = false;
             customerDataViewGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            customerDataViewGrid.Location = new Point(165, 9);
+            customerDataViewGrid.Location = new Point(160, 40);
             customerDataViewGrid.Name = "customerDataViewGrid";
             customerDataViewGrid.RowTemplate.Height = 25;
-            customerDataViewGrid.Size = new Size(623, 408);
+            customerDataViewGrid.Size = new Size(628, 398);
             customerDataViewGrid.TabIndex = 11;
             // 
             // addCustomerButton
             // 
-            addCustomerButton.Location = new Point(12, 313);
+            addCustomerButton.Location = new Point(12, 142);
             addCustomerButton.Name = "addCustomerButton";
-            addCustomerButton.Size = new Size(115, 23);
+            addCustomerButton.Size = new Size(120, 50);
             addCustomerButton.TabIndex = 12;
-            addCustomerButton.Text = "Add Customer";
+            addCustomerButton.Text = "ADD";
             addCustomerButton.UseVisualStyleBackColor = true;
             addCustomerButton.Click += AddCustomerButton_Click;
             // 
             // customerSearchBox
             // 
-            customerSearchBox.Location = new Point(12, 40);
+            customerSearchBox.Location = new Point(12, 57);
             customerSearchBox.Name = "customerSearchBox";
             customerSearchBox.PlaceholderText = "First Name";
             customerSearchBox.Size = new Size(140, 23);
@@ -89,21 +90,21 @@ namespace MovieRentalProject
             // 
             // customerSearchButton
             // 
-            customerSearchButton.Location = new Point(12, 78);
+            customerSearchButton.Location = new Point(12, 86);
             customerSearchButton.Name = "customerSearchButton";
-            customerSearchButton.Size = new Size(140, 23);
+            customerSearchButton.Size = new Size(120, 50);
             customerSearchButton.TabIndex = 14;
-            customerSearchButton.Text = "Search Customer";
+            customerSearchButton.Text = "SEARCH";
             customerSearchButton.UseVisualStyleBackColor = true;
             customerSearchButton.Click += customerSearchButton_Click;
             // 
             // customerEditButton
             // 
-            customerEditButton.Location = new Point(12, 284);
+            customerEditButton.Location = new Point(12, 198);
             customerEditButton.Name = "customerEditButton";
-            customerEditButton.Size = new Size(115, 23);
+            customerEditButton.Size = new Size(120, 50);
             customerEditButton.TabIndex = 15;
-            customerEditButton.Text = "Edit Customer";
+            customerEditButton.Text = "EDIT";
             customerEditButton.UseVisualStyleBackColor = true;
             customerEditButton.Click += customerEditButton_Click;
             // 
