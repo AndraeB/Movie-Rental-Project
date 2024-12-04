@@ -23,6 +23,7 @@ namespace MovieRentalProject
         {
             InitializeComponent();
             SetupDataGridView();
+            customerDataViewGrid.SelectionChanged += Customer_SelectionChanged;
         }
         private void SetupDataGridView()
         {
@@ -54,7 +55,7 @@ namespace MovieRentalProject
             customerDataViewGrid.EnableHeadersVisualStyles = false;
 
             // Set other properties
-            customerDataViewGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            customerDataViewGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
         private void backButton_Click(object sender, EventArgs e)
         {
@@ -124,6 +125,18 @@ namespace MovieRentalProject
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading data: {ex.Message}");
+            }
+        }
+
+        private void Customer_SelectionChanged(object sender, EventArgs e)
+        {
+            // Check if a row is selected
+            if (customerDataViewGrid.SelectedRows.Count > 0)
+            {
+                // Get the selected CustomerID
+                Global.GlobalCustID = customerDataViewGrid.SelectedRows[0].Cells["CustomerID"].Value.ToString();
+
+                // Call method to query Queue_Up and Movie tables
             }
         }
 

@@ -45,6 +45,8 @@
             CreditCardLbl = new Label();
             CreditCardTxtBox = new TextBox();
             SearchText = new Label();
+            CustEditPostalCode = new TextBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // FinishBtn
@@ -70,7 +72,7 @@
             // FirstNmLbl
             // 
             FirstNmLbl.AutoSize = true;
-            FirstNmLbl.Location = new Point(12, 59);
+            FirstNmLbl.Location = new Point(12, 51);
             FirstNmLbl.Name = "FirstNmLbl";
             FirstNmLbl.Size = new Size(64, 15);
             FirstNmLbl.TabIndex = 2;
@@ -79,7 +81,7 @@
             // LastNmLbl
             // 
             LastNmLbl.AutoSize = true;
-            LastNmLbl.Location = new Point(246, 59);
+            LastNmLbl.Location = new Point(246, 51);
             LastNmLbl.Name = "LastNmLbl";
             LastNmLbl.Size = new Size(63, 15);
             LastNmLbl.TabIndex = 3;
@@ -87,14 +89,14 @@
             // 
             // FirstNmTxtBox
             // 
-            FirstNmTxtBox.Location = new Point(12, 77);
+            FirstNmTxtBox.Location = new Point(12, 69);
             FirstNmTxtBox.Name = "FirstNmTxtBox";
             FirstNmTxtBox.Size = new Size(212, 23);
             FirstNmTxtBox.TabIndex = 4;
             // 
             // LastNmTxtBox
             // 
-            LastNmTxtBox.Location = new Point(246, 77);
+            LastNmTxtBox.Location = new Point(246, 69);
             LastNmTxtBox.Name = "LastNmTxtBox";
             LastNmTxtBox.Size = new Size(212, 23);
             LastNmTxtBox.TabIndex = 5;
@@ -102,7 +104,7 @@
             // EmailLbl
             // 
             EmailLbl.AutoSize = true;
-            EmailLbl.Location = new Point(12, 115);
+            EmailLbl.Location = new Point(12, 101);
             EmailLbl.Name = "EmailLbl";
             EmailLbl.Size = new Size(36, 15);
             EmailLbl.TabIndex = 6;
@@ -111,7 +113,7 @@
             // AddressLbl
             // 
             AddressLbl.AutoSize = true;
-            AddressLbl.Location = new Point(12, 173);
+            AddressLbl.Location = new Point(12, 144);
             AddressLbl.Name = "AddressLbl";
             AddressLbl.Size = new Size(49, 15);
             AddressLbl.TabIndex = 7;
@@ -119,14 +121,14 @@
             // 
             // EmailTxtBox
             // 
-            EmailTxtBox.Location = new Point(12, 133);
+            EmailTxtBox.Location = new Point(12, 119);
             EmailTxtBox.Name = "EmailTxtBox";
             EmailTxtBox.Size = new Size(212, 23);
             EmailTxtBox.TabIndex = 8;
             // 
             // AddressTxtBox
             // 
-            AddressTxtBox.Location = new Point(12, 191);
+            AddressTxtBox.Location = new Point(12, 162);
             AddressTxtBox.Name = "AddressTxtBox";
             AddressTxtBox.Size = new Size(363, 23);
             AddressTxtBox.TabIndex = 9;
@@ -134,7 +136,7 @@
             // CityLbl
             // 
             CityLbl.AutoSize = true;
-            CityLbl.Location = new Point(12, 232);
+            CityLbl.Location = new Point(12, 224);
             CityLbl.Name = "CityLbl";
             CityLbl.Size = new Size(28, 15);
             CityLbl.TabIndex = 10;
@@ -142,14 +144,14 @@
             // 
             // CityTxtBox
             // 
-            CityTxtBox.Location = new Point(12, 250);
+            CityTxtBox.Location = new Point(12, 242);
             CityTxtBox.Name = "CityTxtBox";
             CityTxtBox.Size = new Size(212, 23);
             CityTxtBox.TabIndex = 11;
             // 
             // ProvinceTxtBox
             // 
-            ProvinceTxtBox.Location = new Point(246, 250);
+            ProvinceTxtBox.Location = new Point(246, 242);
             ProvinceTxtBox.Name = "ProvinceTxtBox";
             ProvinceTxtBox.Size = new Size(212, 23);
             ProvinceTxtBox.TabIndex = 12;
@@ -157,7 +159,7 @@
             // ProvinceLbl
             // 
             ProvinceLbl.AutoSize = true;
-            ProvinceLbl.Location = new Point(246, 232);
+            ProvinceLbl.Location = new Point(246, 224);
             ProvinceLbl.Name = "ProvinceLbl";
             ProvinceLbl.Size = new Size(53, 15);
             ProvinceLbl.TabIndex = 13;
@@ -166,7 +168,7 @@
             // CreditCardLbl
             // 
             CreditCardLbl.AutoSize = true;
-            CreditCardLbl.Location = new Point(12, 291);
+            CreditCardLbl.Location = new Point(12, 283);
             CreditCardLbl.Name = "CreditCardLbl";
             CreditCardLbl.Size = new Size(67, 15);
             CreditCardLbl.TabIndex = 14;
@@ -174,7 +176,7 @@
             // 
             // CreditCardTxtBox
             // 
-            CreditCardTxtBox.Location = new Point(12, 309);
+            CreditCardTxtBox.Location = new Point(12, 301);
             CreditCardTxtBox.Name = "CreditCardTxtBox";
             CreditCardTxtBox.Size = new Size(212, 23);
             CreditCardTxtBox.TabIndex = 15;
@@ -190,11 +192,29 @@
             SearchText.TabIndex = 16;
             SearchText.Text = "CustomerID: (Display here[?])";
             // 
+            // CustEditPostalCode
+            // 
+            CustEditPostalCode.Location = new Point(246, 119);
+            CustEditPostalCode.Name = "CustEditPostalCode";
+            CustEditPostalCode.Size = new Size(212, 23);
+            CustEditPostalCode.TabIndex = 17;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(246, 101);
+            label1.Name = "label1";
+            label1.Size = new Size(70, 15);
+            label1.TabIndex = 18;
+            label1.Text = "Postal Code";
+            // 
             // EditCustomer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label1);
+            Controls.Add(CustEditPostalCode);
             Controls.Add(SearchText);
             Controls.Add(CreditCardTxtBox);
             Controls.Add(CreditCardLbl);
@@ -237,5 +257,7 @@
         private Label CreditCardLbl;
         private TextBox CreditCardTxtBox;
         private Label SearchText;
+        private TextBox CustEditPostalCode;
+        private Label label1;
     }
 }

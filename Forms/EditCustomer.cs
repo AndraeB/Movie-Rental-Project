@@ -28,9 +28,11 @@ namespace MovieRentalProject
         // Main constructor
         public EditCustomer(string custID)
         {
+            
             InitializeComponent();
-            this.custID = custID;
+            this.custID = Global.GlobalCustID;
             LoadCustomerDetails();
+            SearchText.Text = "CustomerID: "+this.custID;
         }
         private void LoadCustomerDetails()
         {
@@ -39,7 +41,7 @@ namespace MovieRentalProject
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = @"SELECT FirstName, LastName, EmailAddress, Addr, City, Province, CreditCardNumber 
+                    string query = @"SELECT FirstName, LastName, EmailAddress, PostalCode, Addr, City, Province, CreditCardNumber 
                                     FROM Customer 
                                     WHERE CustomerID = @CustomerID";
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -55,6 +57,7 @@ namespace MovieRentalProject
                                     FirstNmTxtBox.Text = reader["FirstName"].ToString();
                                     LastNmTxtBox.Text = reader["LastName"].ToString();
                                     EmailTxtBox.Text = reader["EmailAddress"].ToString();
+                                    CustEditPostalCode.Text = reader["PostalCode"].ToString();
                                     AddressTxtBox.Text = reader["Addr"].ToString();
                                     CityTxtBox.Text = reader["City"].ToString();
                                     ProvinceTxtBox.Text = reader["Province"].ToString();
@@ -88,7 +91,7 @@ namespace MovieRentalProject
             string CustCity = CityTxtBox.Text;
             string CustProvince = ProvinceTxtBox.Text;
             string CustCredCard = CreditCardTxtBox.Text;
-
+            string CustPostalCode = CustEditPostalCode.Text;
             // Check if fields are filled
             if (this.Controls.OfType<TextBox>().Any(tb => string.IsNullOrEmpty(tb.Text)))
             {
@@ -97,9 +100,12 @@ namespace MovieRentalProject
             }
 
             // If the error handling is passed then apply changes to the database
-            ApplyCustomerEdit(CustFirstNm, CustLastNm, CustEmail, CustAddress, CustCity, CustProvince, CustCredCard);
+            ApplyCustomerEdit(CustFirstNm, CustLastNm, CustEmail, CustPostalCode, CustAddress, CustCity, CustProvince, CustCredCard);
+            CustomerForm customerForm = new CustomerForm();
+            customerForm.Show();
+            this.Hide();
         }
-        private void ApplyCustomerEdit(string FirstNm, string LastNm, string E_Mail, string Addr, string City, string Province, string CreditCard)
+        private void ApplyCustomerEdit(string FirstNm, string LastNm, string E_Mail, string PostalCode, string Addr, string City, string Province, string CreditCard)
         {
             try
             {
@@ -114,7 +120,9 @@ namespace MovieRentalProject
                                    "Addr = @Address, " +
                                    "City = @City, " +
                                    "Province = @Province, " +
-                                   "CreditCardNumber = @CredCard";
+                                   "PostalCode = @PostalCode, " +
+                                   "CreditCardNumber = @CredCard " +
+                                   "WHERE CustomerID = @CustomerID"; 
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -125,8 +133,9 @@ namespace MovieRentalProject
                         command.Parameters.AddWithValue("@Address", Addr);
                         command.Parameters.AddWithValue("@City", City);
                         command.Parameters.AddWithValue("@Province", Province);
+                        command.Parameters.AddWithValue("@PostalCode", PostalCode);
                         command.Parameters.AddWithValue("@CredCard", CreditCard);
-
+                        command.Parameters.AddWithValue("@CustomerID", this.custID);
                         // Execute the query
                         int rowsAffected = command.ExecuteNonQuery();
 
@@ -151,5 +160,6 @@ namespace MovieRentalProject
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }
