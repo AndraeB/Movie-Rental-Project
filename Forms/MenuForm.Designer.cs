@@ -36,41 +36,45 @@
             // 
             // MovieMaintenance
             // 
-            MovieMaintenance.Location = new Point(278, 25);
+            MovieMaintenance.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            MovieMaintenance.Location = new Point(279, 53);
             MovieMaintenance.Name = "MovieMaintenance";
             MovieMaintenance.Size = new Size(210, 73);
             MovieMaintenance.TabIndex = 0;
-            MovieMaintenance.Text = "Movie Maintenance";
+            MovieMaintenance.Text = "MOVIE MAINTENANCE";
             MovieMaintenance.UseVisualStyleBackColor = true;
             MovieMaintenance.Click += MovieMaintenance_Click_1;
             // 
             // CustomerMaintenance
             // 
-            CustomerMaintenance.Location = new Point(278, 104);
+            CustomerMaintenance.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            CustomerMaintenance.Location = new Point(279, 132);
             CustomerMaintenance.Name = "CustomerMaintenance";
             CustomerMaintenance.Size = new Size(210, 73);
             CustomerMaintenance.TabIndex = 1;
-            CustomerMaintenance.Text = "Customer Maintenance";
+            CustomerMaintenance.Text = "CUSTOMER MAINTENANCE";
             CustomerMaintenance.UseVisualStyleBackColor = true;
             CustomerMaintenance.Click += CustomerMaintenance_Click_1;
             // 
             // Rental
             // 
-            Rental.Location = new Point(278, 183);
+            Rental.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            Rental.Location = new Point(279, 211);
             Rental.Name = "Rental";
             Rental.Size = new Size(210, 73);
             Rental.TabIndex = 2;
-            Rental.Text = "Rental";
+            Rental.Text = "MOVIE RENTAL";
             Rental.UseVisualStyleBackColor = true;
             Rental.Click += Rental_Click_1;
             // 
             // Reports
             // 
-            Reports.Location = new Point(278, 262);
+            Reports.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
+            Reports.Location = new Point(279, 290);
             Reports.Name = "Reports";
             Reports.Size = new Size(210, 73);
             Reports.TabIndex = 3;
-            Reports.Text = "Reports";
+            Reports.Text = "BUSINESS REPORTS";
             Reports.UseVisualStyleBackColor = true;
             Reports.Click += Reports_Click_1;
             // 

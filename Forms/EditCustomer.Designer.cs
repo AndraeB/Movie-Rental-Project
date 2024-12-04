@@ -49,21 +49,21 @@
             // 
             // FinishBtn
             // 
-            FinishBtn.Location = new Point(671, 373);
+            FinishBtn.Location = new Point(668, 388);
             FinishBtn.Name = "FinishBtn";
-            FinishBtn.Size = new Size(117, 44);
+            FinishBtn.Size = new Size(120, 50);
             FinishBtn.TabIndex = 0;
-            FinishBtn.Text = "Finish";
+            FinishBtn.Text = "FINISH";
             FinishBtn.UseVisualStyleBackColor = true;
             FinishBtn.Click += FinishBtn_Click;
             // 
             // CancelBtn
             // 
-            CancelBtn.Location = new Point(12, 373);
+            CancelBtn.Location = new Point(12, 388);
             CancelBtn.Name = "CancelBtn";
-            CancelBtn.Size = new Size(117, 44);
+            CancelBtn.Size = new Size(120, 50);
             CancelBtn.TabIndex = 1;
-            CancelBtn.Text = "Cancel";
+            CancelBtn.Text = "CANCEL";
             CancelBtn.UseVisualStyleBackColor = true;
             CancelBtn.Click += CancelBtn_Click;
             // 
@@ -182,11 +182,11 @@
             // SearchText
             // 
             SearchText.AutoSize = true;
-            SearchText.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+            SearchText.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
             SearchText.ForeColor = Color.Blue;
             SearchText.Location = new Point(12, 9);
             SearchText.Name = "SearchText";
-            SearchText.Size = new Size(272, 25);
+            SearchText.Size = new Size(289, 28);
             SearchText.TabIndex = 16;
             SearchText.Text = "CustomerID: (Display here[?])";
             // 
