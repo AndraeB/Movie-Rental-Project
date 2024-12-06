@@ -79,17 +79,17 @@ namespace MovieRentalProject
 
         private void FilterComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Handle filter changes if needed
+            GenerateButton_Click(sender, e);
         }
 
         private void FilterComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Handle filter changes if needed
+            GenerateButton_Click(sender, e);
         }
 
         private void FilterComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Handle filter changes if needed
+            GenerateButton_Click(sender, e);
         }
 
         private void ReportSelector_SelectedIndexChanged(object sender, EventArgs e)
@@ -416,165 +416,169 @@ namespace MovieRentalProject
             return reportType switch
             {
                 "Movie Performance" => $@"
-            SELECT 
-                m.MovieName,
-                m.MovieType,
-                COUNT(o.OrderID) AS TotalRentals,
-                SUM(m.DistributionFee) AS Revenue,
-                AVG(CAST(mr.Rating AS FLOAT)) AS AvgRating,
-                m.NumOfCopies AS AvailableCopies,
-                CAST(SUM(m.DistributionFee) / m.NumOfCopies AS DECIMAL(10,2)) AS RevenuePerCopy,
-                CAST(COUNT(o.OrderID) AS FLOAT) / 
-                    NULLIF(DATEDIFF(DAY, MIN(o.CheckoutDateTime), GETDATE()), 0) * 30 AS MonthlyRentalRate,
-                (SELECT COUNT(*) FROM Ordr o2 
-                 WHERE o2.MovieName = m.MovieName 
-                 AND o2.ReturnDateTime IS NULL) AS CurrentlyRented
-            FROM Movie m
-            LEFT JOIN Ordr o ON m.MovieName = o.MovieName
-            LEFT JOIN Movie_Rating mr ON mr.MovieID = m.MovieID
-            {BuildMovieWhereClause(filters)}
-            GROUP BY m.MovieID, m.MovieName, m.MovieType, m.NumOfCopies
-            {BuildPerformanceWhereClause(filters)}
-            ORDER BY TotalRentals DESC",
+                    SELECT 
+                        m.MovieName,
+                        m.MovieType,
+                        COUNT(o.OrderID) AS TotalRentals,
+                        SUM(m.DistributionFee) AS Revenue,
+                        AVG(CAST(mr.Rating AS FLOAT)) AS AvgRating,
+                        m.NumOfCopies AS AvailableCopies,
+                        CAST(SUM(m.DistributionFee) / m.NumOfCopies AS DECIMAL(10,2)) AS RevenuePerCopy,
+                        CAST(COUNT(o.OrderID) AS FLOAT) / 
+                            NULLIF(DATEDIFF(DAY, MIN(o.CheckoutDateTime), GETDATE()), 0) * 30 AS MonthlyRentalRate,
+                        (SELECT COUNT(*) FROM Ordr o2 
+                        WHERE o2.MovieName = m.MovieName 
+                        AND o2.ReturnDateTime IS NULL) AS CurrentlyRented
+                    FROM Movie m
+                    LEFT JOIN Ordr o ON m.MovieName = o.MovieName
+                    LEFT JOIN Movie_Rating mr ON mr.MovieID = m.MovieID
+                    {BuildMovieWhereClause(filters)}
+                    GROUP BY m.MovieID, m.MovieName, m.MovieType, m.NumOfCopies
+                    {BuildPerformanceWhereClause(filters)}
+                    ORDER BY TotalRentals DESC",
 
                 "Inventory Analysis" => $@"
-            SELECT 
-                m.MovieName,
-                m.MovieType,
-                m.NumOfCopies,
-                COUNT(o.OrderID) AS CurrentRentals,
-                COUNT(q.CustomerID) AS QueueLength,
-                CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 AS UtilizationRate,
-                AVG(DATEDIFF(DAY, o.CheckoutDateTime, o.ReturnDateTime)) AS AvgRentalDuration,
-                CASE 
-                    WHEN CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) > 0.8 
-                    THEN 'Consider adding copies'
-                    WHEN CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) < 0.2 
-                    THEN 'Consider reducing copies'
-                    ELSE 'Stock level optimal'
-                END AS Recommendation
-            FROM Movie m
-            LEFT JOIN Ordr o ON m.MovieName = o.MovieName AND o.ReturnDateTime IS NULL
-            LEFT JOIN Queue_up q ON m.MovieID = q.MovieID
-            {BuildMovieWhereClause(filters)}
-            GROUP BY m.MovieID, m.MovieName, m.MovieType, m.NumOfCopies
-            {(filters.TryGetValue("Utilization", out string? util) && !string.IsNullOrEmpty(util) && !util.StartsWith("All") ?
-                $"HAVING CASE " +
-                $"WHEN '{util}' LIKE '%High%' THEN UtilizationRate > 80 " +
-                $"WHEN '{util}' LIKE '%Medium%' THEN UtilizationRate BETWEEN 40 AND 80 " +
-                $"WHEN '{util}' LIKE '%Low%' THEN UtilizationRate < 40 END" : "")}
-            ORDER BY UtilizationRate DESC",
+                    SELECT 
+                        m.MovieName,
+                        m.MovieType,
+                        m.NumOfCopies,
+                        COUNT(o.OrderID) AS CurrentRentals,
+                        COUNT(q.CustomerID) AS QueueLength,
+                        CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 AS UtilizationRate,
+                        AVG(DATEDIFF(DAY, o.CheckoutDateTime, o.ReturnDateTime)) AS AvgRentalDuration,
+                        CASE 
+                            WHEN CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) > 0.8 
+                            THEN 'Consider adding copies'
+                            WHEN CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) < 0.2 
+                            THEN 'Consider reducing copies'
+                            ELSE 'Stock level optimal'
+                        END AS Recommendation
+                    FROM Movie m
+                    LEFT JOIN Ordr o ON m.MovieName = o.MovieName AND o.ReturnDateTime IS NULL
+                    LEFT JOIN Queue_up q ON m.MovieID = q.MovieID
+                    {BuildMovieWhereClause(filters)}
+                    GROUP BY m.MovieID, m.MovieName, m.MovieType, m.NumOfCopies
+                    {(filters.TryGetValue("Utilization", out string? util) && !string.IsNullOrEmpty(util) && !util.StartsWith("All") ?
+                        $"HAVING " + (util.Contains("High") ? "CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 > 80" :
+                                    util.Contains("Medium") ? "CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 BETWEEN 40 AND 80" :
+                                    util.Contains("Low") ? "CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 < 40" : "1=1") : "")}
+                    ORDER BY UtilizationRate DESC",
 
                 "Revenue-Time Analysis" => @"
-            WITH MonthlyRevenue AS (
-                SELECT 
-                    DATEPART(year, o.CheckoutDateTime) AS Year,
-                    DATEPART(month, o.CheckoutDateTime) AS Month,
-                    DATENAME(month, o.CheckoutDateTime) AS MonthName,
-                    COUNT(*) AS TotalRentals,
-                    SUM(m.DistributionFee) AS Revenue
-                FROM Ordr o
-                JOIN Movie m ON o.MovieName = m.MovieName
-                GROUP BY 
-                    DATEPART(year, o.CheckoutDateTime),
-                    DATEPART(month, o.CheckoutDateTime),
-                    DATENAME(month, o.CheckoutDateTime)
-            )
-            SELECT 
-                Year,
-                MonthName,
-                TotalRentals,
-                Revenue,
-                LAG(Revenue) OVER (ORDER BY Year, Month) AS PrevMonthRevenue,
-                CASE 
-                    WHEN LAG(Revenue) OVER (ORDER BY Year, Month) > 0 
-                    THEN ((Revenue - LAG(Revenue) OVER (ORDER BY Year, Month)) / 
-                        LAG(Revenue) OVER (ORDER BY Year, Month)) * 100
-                    ELSE 0 
-                END AS MonthlyGrowthRate
-            FROM MonthlyRevenue
-            ORDER BY Year, Month",
+                    WITH MonthlyRevenue AS (
+                        SELECT 
+                            DATEPART(year, o.CheckoutDateTime) AS Year,
+                            DATEPART(month, o.CheckoutDateTime) AS Month,
+                            DATENAME(month, o.CheckoutDateTime) AS MonthName,
+                            COUNT(*) AS TotalRentals,
+                            SUM(m.DistributionFee) AS Revenue
+                        FROM Ordr o
+                        JOIN Movie m ON o.MovieName = m.MovieName
+                        GROUP BY 
+                            DATEPART(year, o.CheckoutDateTime),
+                            DATEPART(month, o.CheckoutDateTime),
+                            DATENAME(month, o.CheckoutDateTime)
+                    )
+                    SELECT 
+                        Year,
+                        MonthName,
+                        TotalRentals,
+                        Revenue,
+                        LAG(Revenue) OVER (ORDER BY Year, Month) AS PrevMonthRevenue,
+                        CASE 
+                            WHEN LAG(Revenue) OVER (ORDER BY Year, Month) > 0 
+                            THEN ((Revenue - LAG(Revenue) OVER (ORDER BY Year, Month)) / 
+                                LAG(Revenue) OVER (ORDER BY Year, Month)) * 100
+                            ELSE 0 
+                        END AS MonthlyGrowthRate
+                    FROM MonthlyRevenue
+                    ORDER BY Year, Month",
 
                 "Pricing Suggestions" => $@"
-            WITH MovieStats AS (
-                SELECT 
-                    m.MovieName,
-                    m.MovieType,
-                    m.DistributionFee AS CurrentPrice,
-                    AVG(m2.DistributionFee) AS AvgGenrePrice,
-                    COUNT(o.OrderID) AS RentalCount,
-                    AVG(CAST(mr.Rating AS FLOAT)) AS AvgRating
-                FROM Movie m
-                LEFT JOIN Movie m2 ON m.MovieType = m2.MovieType
-                LEFT JOIN Ordr o ON m.MovieName = o.MovieName
-                LEFT JOIN Movie_Rating mr ON m.MovieID = mr.MovieID
-                {BuildMovieWhereClause(filters)}
-                GROUP BY m.MovieID, m.MovieName, m.MovieType, m.DistributionFee
-            )
-            SELECT 
-                MovieName,
-                MovieType,
-                CurrentPrice,
-                AvgGenrePrice,
-                RentalCount,
-                AvgRating,
-                CASE 
-                    WHEN RentalCount < 5 AND CurrentPrice > AvgGenrePrice 
-                    THEN 'Consider price reduction'
-                    WHEN RentalCount > 20 AND CurrentPrice < AvgGenrePrice 
-                    THEN 'Potential to increase price'
-                    ELSE 'Price is optimal'
-                END AS PricingSuggestion
-            FROM MovieStats
-            {(filters.TryGetValue("Price Range", out string? priceRange) && !string.IsNullOrEmpty(priceRange) && !priceRange.StartsWith("All") ?
-                $"WHERE {(priceRange == "Above Average" ? "CurrentPrice > AvgGenrePrice" : "CurrentPrice < AvgGenrePrice")}" : "")}
-            ORDER BY RentalCount DESC",
+                    WITH MovieStats AS (
+                        SELECT 
+                            m.MovieName,
+                            m.MovieType,
+                            m.DistributionFee AS CurrentPrice,
+                            AVG(m2.DistributionFee) AS AvgGenrePrice,
+                            COUNT(o.OrderID) AS RentalCount,
+                            AVG(CAST(mr.Rating AS FLOAT)) AS AvgRating
+                        FROM Movie m
+                        LEFT JOIN Movie m2 ON m.MovieType = m2.MovieType
+                        LEFT JOIN Ordr o ON m.MovieName = o.MovieName
+                        LEFT JOIN Movie_Rating mr ON m.MovieID = mr.MovieID
+                        {BuildMovieWhereClause(filters)}
+                        GROUP BY m.MovieID, m.MovieName, m.MovieType, m.DistributionFee
+                    )
+                    SELECT 
+                        MovieName,
+                        MovieType,
+                        CurrentPrice,
+                        AvgGenrePrice,
+                        RentalCount,
+                        AvgRating,
+                        CASE 
+                            WHEN RentalCount < 5 AND CurrentPrice > AvgGenrePrice 
+                            THEN 'Consider price reduction'
+                            WHEN RentalCount > 20 AND CurrentPrice < AvgGenrePrice 
+                            THEN 'Potential to increase price'
+                            ELSE 'Price is optimal'
+                        END AS PricingSuggestion
+                    FROM MovieStats
+                    {(filters.TryGetValue("Price Range", out string? priceRange) && !string.IsNullOrEmpty(priceRange) && !priceRange.StartsWith("All") ?
+                        $"WHERE {(priceRange == "Above Average" ? "CurrentPrice > AvgGenrePrice" : "CurrentPrice < AvgGenrePrice")}" : "")}
+                    ORDER BY RentalCount DESC",
 
                 "Actor Popularity Analysis" => $@"
-            WITH ActorStats AS (
-                SELECT 
-                    a.ActorID,
-                    a.FirstName + ' ' + a.LastName AS ActorName,
-                    COUNT(DISTINCT ai.MovieID) AS MovieCount,
-                    AVG(CAST(ar.Rating AS FLOAT)) AS AvgRating,
-                    COUNT(o.OrderID) AS TotalRentals,
-                    SUM(m.DistributionFee) AS TotalRevenue,
-                    (SELECT DISTINCT STUFF(
-                        (SELECT DISTINCT ', ' + RTRIM(MovieType)
-                        FROM (SELECT DISTINCT MovieType
-                            FROM Movie m2
-                            JOIN Appears_in ai2 ON m2.MovieID = ai2.MovieID
-                            WHERE ai2.ActorID = a.ActorID) t
-                        FOR XML PATH('')), 1, 2, ''
-                    )) AS TopGenres
-                FROM Actor a
-                LEFT JOIN Appears_in ai ON a.ActorID = ai.ActorID
-                LEFT JOIN Movie m ON ai.MovieID = m.MovieID
-                {BuildMovieWhereClause(filters)}
-                LEFT JOIN Ordr o ON m.MovieName = o.MovieName
-                LEFT JOIN Actor_Rating ar ON a.ActorID = ar.ActorID
-                GROUP BY a.ActorID, a.FirstName, a.LastName
-                {(filters.TryGetValue("Movie Count", out string? movieCount) && !string.IsNullOrEmpty(movieCount) && !movieCount.StartsWith("All") ?
-                    $"HAVING COUNT(DISTINCT ai.MovieID) {(movieCount == "3+ Movies" ? ">= 3" :
-                                        movieCount == "2 Movies" ? "= 2" : "= 1")}" : "")}
-            )
-            SELECT 
-                ActorName,
-                MovieCount,
-                AvgRating,
-                TotalRentals,
-                TotalRevenue,
-                TopGenres,
-                CASE 
-                    WHEN TotalRentals > 100 AND AvgRating >= 4 THEN 'High Performer'
-                    WHEN TotalRentals > 50 AND AvgRating >= 3.5 THEN 'Good Performer'
-                    ELSE 'Average Performer'
-                END AS PerformanceCategory
-            FROM ActorStats
-            {(filters.TryGetValue("Performance", out string? perf) && !string.IsNullOrEmpty(perf) && !perf.StartsWith("All") ?
-                $"WHERE PerformanceCategory = '{perf}'" : "")}
-            ORDER BY TotalRentals DESC, AvgRating DESC",
-
+                    WITH ActorStats AS (
+                        SELECT 
+                            a.ActorID,
+                            a.FirstName + ' ' + a.LastName AS ActorName,
+                            COUNT(DISTINCT ai.MovieID) AS MovieCount,
+                            AVG(CAST(ar.Rating AS FLOAT)) AS AvgRating,
+                            COUNT(o.OrderID) AS TotalRentals,
+                            SUM(m.DistributionFee) AS TotalRevenue,
+                            (SELECT DISTINCT STUFF(
+                                (SELECT DISTINCT ', ' + RTRIM(MovieType)
+                                FROM (SELECT DISTINCT MovieType
+                                    FROM Movie m2
+                                    JOIN Appears_in ai2 ON m2.MovieID = ai2.MovieID
+                                    WHERE ai2.ActorID = a.ActorID) t
+                                FOR XML PATH('')), 1, 2, ''
+                            )) AS TopGenres
+                        FROM Actor a
+                        LEFT JOIN Appears_in ai ON a.ActorID = ai.ActorID
+                        LEFT JOIN Movie m ON ai.MovieID = m.MovieID
+                        LEFT JOIN Ordr o ON m.MovieName = o.MovieName
+                        LEFT JOIN Actor_Rating ar ON a.ActorID = ar.ActorID
+                        {BuildMovieWhereClause(filters)}
+                        GROUP BY a.ActorID, a.FirstName, a.LastName
+                        {(filters.TryGetValue("Movie Count", out string? movieCount) && !string.IsNullOrEmpty(movieCount) && !movieCount.StartsWith("All") ?
+                            $"HAVING COUNT(DISTINCT ai.MovieID) {(movieCount == "3+ Movies" ? ">= 3" :
+                                                movieCount == "2 Movies" ? "= 2" : "= 1")}" : "")}
+                    )
+                    SELECT 
+                        ActorName,
+                        MovieCount,
+                        AvgRating,
+                        TotalRentals,
+                        TotalRevenue,
+                        TopGenres,
+                        CASE 
+                            WHEN TotalRentals > 100 AND AvgRating >= 4 THEN 'High Performer'
+                            WHEN TotalRentals > 50 AND AvgRating >= 3.5 THEN 'Good Performer'
+                            ELSE 'Average Performer'
+                        END AS PerformanceCategory
+                    FROM ActorStats
+                    {(filters.TryGetValue("Performance", out string? perf) && !string.IsNullOrEmpty(perf) && !perf.StartsWith("All") ?
+                        perf == "High Performer" ?
+                            $"WHERE TotalRentals > 100 AND AvgRating >= 4.0" :
+                        perf == "Good Performer" ?
+                            $"WHERE TotalRentals > 50 AND AvgRating >= 3.5" :
+                        $"WHERE (TotalRentals <= 50 OR AvgRating < 3.5)"
+                        : "")}
+                    ORDER BY TotalRentals DESC, AvgRating DESC",
+                
                 _ => throw new ArgumentException("Invalid report type")
             };
         }
