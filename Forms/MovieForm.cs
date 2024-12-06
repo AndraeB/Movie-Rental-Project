@@ -94,6 +94,11 @@ namespace MovieRentalProject
 
         private void searchbutton_Click(object sender, EventArgs e)
         {
+            if (this.Controls.OfType<TextBox>().Any(tb => string.IsNullOrEmpty(tb.Text)))
+            {
+                MessageBox.Show("All fields must be filled out.");
+                return;
+            }
             string searchTitle = TitleSearch.Text.Trim();
             LoadMovieData(searchTitle);
         }

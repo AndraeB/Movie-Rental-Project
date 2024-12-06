@@ -103,7 +103,7 @@ CREATE TABLE Ordr (
 CREATE TABLE Movie_Rating (
     RatingID nchar(4) PRIMARY KEY,
     OrderID INT FOREIGN KEY REFERENCES Ordr(OrderID),
-    MovieID INT FOREIGN KEY REFERENCES Movie(MovieID),
+    MovieID INT FOREIGN KEY REFERENCES Movie(MovieID) ON DELETE CASCADE,
     Rating int
 );
 
@@ -117,7 +117,7 @@ CREATE TABLE Actor_Rating (
 
 --Generate for Appears_in
 CREATE TABLE Appears_in (
-    MovieID INT FOREIGN KEY REFERENCES Movie(MovieID),
+    MovieID INT FOREIGN KEY REFERENCES Movie(MovieID) ON DELETE CASCADE,
     ActorID nchar(4) FOREIGN KEY REFERENCES Actor(ActorID),
     PRIMARY KEY (MovieID, ActorID)
 );
