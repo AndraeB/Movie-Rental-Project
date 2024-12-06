@@ -8,6 +8,29 @@ namespace MovieRentalProject
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["MovieRental"].ConnectionString;
 
+        // Const values to tweak for the reports:
+
+        // Performance thresholds
+        private const int HIGH_RENTALS_THRESHOLD = 20;
+        private const int LOW_RENTALS_THRESHOLD = 5;
+        private const double HIGH_RATING_THRESHOLD = 4.0;
+        private const double MEDIUM_RATING_THRESHOLD = 3.0;
+
+        // Revenue thresholds (as multipliers of average)
+        private const double HIGH_REVENUE_MULTIPLIER = 1.2;  // 20% above average
+        private const double LOW_REVENUE_MULTIPLIER = 0.8;   // 20% below average
+
+        // Utilization rate thresholds (as percentages)
+        private const double HIGH_UTILIZATION_THRESHOLD = 80.0;
+        private const double MEDIUM_UTILIZATION_THRESHOLD = 40.0;
+        private const double LOW_UTILIZATION_THRESHOLD = 20.0;
+
+        // Actor performance thresholds
+        private const int HIGH_PERFORMER_RENTALS = 100;
+        private const int GOOD_PERFORMER_RENTALS = 50;
+        private const double HIGH_PERFORMER_RATING = 4.0;
+        private const double GOOD_PERFORMER_RATING = 3.5;
+
         // Dictionary to store filter configurations for each report type
         private readonly Dictionary<string, (string Label1, string[] Options1, string Label2, string[] Options2, string Label3, string[] Options3)> reportFilters = new()
         {
@@ -322,12 +345,12 @@ namespace MovieRentalProject
                     int rentals = Convert.ToInt32(row.Cells["TotalRentals"].Value);
                     float rating = Convert.ToSingle(row.Cells["AvgRating"].Value);
 
-                    if (rentals > 10 && rating >= 4.0)
+                    if (rentals > 10 && rating >= HIGH_RATING_THRESHOLD)
                     {
                         row.DefaultCellStyle.BackColor = Color.Honeydew;
                         row.DefaultCellStyle.ForeColor = Color.DarkGreen;
                     }
-                    else if (rentals < 5 || rating < 3.0)
+                    else if (rentals < 5 || rating < MEDIUM_RATING_THRESHOLD)
                     {
                         row.DefaultCellStyle.BackColor = Color.MistyRose;
                         row.DefaultCellStyle.ForeColor = Color.DarkRed;
@@ -344,12 +367,12 @@ namespace MovieRentalProject
                 {
                     float rate = Convert.ToSingle(row.Cells["UtilizationRate"].Value);
 
-                    if (rate > 80)
+                    if (rate > HIGH_UTILIZATION_THRESHOLD)
                     {
                         row.DefaultCellStyle.BackColor = Color.MistyRose;
                         row.DefaultCellStyle.ForeColor = Color.DarkRed;
                     }
-                    else if (rate < 20)
+                    else if (rate < LOW_UTILIZATION_THRESHOLD)
                     {
                         row.DefaultCellStyle.BackColor = Color.LemonChiffon;
                         row.DefaultCellStyle.ForeColor = Color.DarkGoldenrod;
@@ -373,13 +396,13 @@ namespace MovieRentalProject
                     switch (rating)
                     {
                         case "4+ Stars":
-                            conditions.Add("m.Rating >= 4");
+                            conditions.Add($"m.Rating >= {HIGH_RATING_THRESHOLD}");
                             break;
                         case "3-4 Stars":
-                            conditions.Add("m.Rating >= 3 AND m.Rating < 4");
+                            conditions.Add($"m.Rating >= {MEDIUM_RATING_THRESHOLD} AND m.Rating < {HIGH_RATING_THRESHOLD}");
                             break;
                         case "Below 3 Stars":
-                            conditions.Add("m.Rating < 3");
+                            conditions.Add($"m.Rating < {MEDIUM_RATING_THRESHOLD}");
                             break;
                     }
                 }
@@ -396,16 +419,16 @@ namespace MovieRentalProject
                     switch (performance)
                     {
                         case "High Rentals":
-                            conditions.Add("COUNT(o.OrderID) > 20");
+                            conditions.Add($"COUNT(o.OrderID) > {HIGH_RENTALS_THRESHOLD}");
                             break;
                         case "Low Rentals":
-                            conditions.Add("COUNT(o.OrderID) < 5");
+                            conditions.Add($"COUNT(o.OrderID) < {LOW_RENTALS_THRESHOLD}");
                             break;
                         case "High Revenue":
-                            conditions.Add("SUM(ISNULL(m.DistributionFee, 0)) > (SELECT AVG(TotalRevenue) * 1.2 FROM (SELECT MovieID, SUM(DistributionFee) as TotalRevenue FROM Movie GROUP BY MovieID) as AvgRev)");
+                            conditions.Add($"SUM(ISNULL(m.DistributionFee, 0)) > (SELECT AVG(TotalRevenue) * {HIGH_REVENUE_MULTIPLIER} FROM (SELECT MovieID, SUM(DistributionFee) as TotalRevenue FROM Movie GROUP BY MovieID) as AvgRev)");
                             break;
                         case "Low Revenue":
-                            conditions.Add("SUM(ISNULL(m.DistributionFee, 0)) < (SELECT AVG(TotalRevenue) * 0.8 FROM (SELECT MovieID, SUM(DistributionFee) as TotalRevenue FROM Movie GROUP BY MovieID) as AvgRev)");
+                            conditions.Add($"SUM(ISNULL(m.DistributionFee, 0)) < (SELECT AVG(TotalRevenue) * {LOW_REVENUE_MULTIPLIER} FROM (SELECT MovieID, SUM(DistributionFee) as TotalRevenue FROM Movie GROUP BY MovieID) as AvgRev)");
                             break;
                     }
                 }
@@ -459,9 +482,9 @@ namespace MovieRentalProject
                     {BuildMovieWhereClause(filters)}
                     GROUP BY m.MovieID, m.MovieName, m.MovieType, m.NumOfCopies
                     {(filters.TryGetValue("Utilization", out string? util) && !string.IsNullOrEmpty(util) && !util.StartsWith("All") ?
-                        $"HAVING " + (util.Contains("High") ? "CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 > 80" :
-                                    util.Contains("Medium") ? "CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 BETWEEN 40 AND 80" :
-                                    util.Contains("Low") ? "CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 < 40" : "1=1") : "")}
+                        $"HAVING " + (util.Contains("High") ? $"CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 > {HIGH_UTILIZATION_THRESHOLD}" :
+                                      util.Contains("Medium") ? $"CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 BETWEEN {MEDIUM_UTILIZATION_THRESHOLD} AND {HIGH_UTILIZATION_THRESHOLD}" :
+                                      util.Contains("Low") ? $"CAST(COUNT(o.OrderID) AS FLOAT) / NULLIF(m.NumOfCopies, 0) * 100 < {LOW_UTILIZATION_THRESHOLD}" : "1=1") : "")}
                     ORDER BY UtilizationRate DESC",
 
                 "Revenue-Time Analysis" => @"
@@ -518,9 +541,9 @@ namespace MovieRentalProject
                         RentalCount,
                         AvgRating,
                         CASE 
-                            WHEN RentalCount < 5 AND CurrentPrice > AvgGenrePrice 
+                            WHEN RentalCount < {LOW_RENTALS_THRESHOLD} AND CurrentPrice > AvgGenrePrice 
                             THEN 'Consider price reduction'
-                            WHEN RentalCount > 20 AND CurrentPrice < AvgGenrePrice 
+                            WHEN RentalCount > {HIGH_RENTALS_THRESHOLD} AND CurrentPrice < AvgGenrePrice 
                             THEN 'Potential to increase price'
                             ELSE 'Price is optimal'
                         END AS PricingSuggestion
@@ -565,17 +588,17 @@ namespace MovieRentalProject
                         TotalRevenue,
                         TopGenres,
                         CASE 
-                            WHEN TotalRentals > 100 AND AvgRating >= 4 THEN 'High Performer'
-                            WHEN TotalRentals > 50 AND AvgRating >= 3.5 THEN 'Good Performer'
+                            WHEN TotalRentals > {HIGH_RENTALS_THRESHOLD} AND AvgRating >= {HIGH_RATING_THRESHOLD} THEN 'High Performer'
+                            WHEN TotalRentals > {LOW_RENTALS_THRESHOLD} AND AvgRating >= {MEDIUM_RATING_THRESHOLD} THEN 'Good Performer'
                             ELSE 'Average Performer'
                         END AS PerformanceCategory
                     FROM ActorStats
                     {(filters.TryGetValue("Performance", out string? perf) && !string.IsNullOrEmpty(perf) && !perf.StartsWith("All") ?
                         perf == "High Performer" ?
-                            $"WHERE TotalRentals > 100 AND AvgRating >= 4.0" :
+                            $"WHERE TotalRentals > {HIGH_RENTALS_THRESHOLD} AND AvgRating >= {HIGH_PERFORMER_RATING}" :
                         perf == "Good Performer" ?
-                            $"WHERE TotalRentals > 50 AND AvgRating >= 3.5" :
-                        $"WHERE (TotalRentals <= 50 OR AvgRating < 3.5)"
+                            $"WHERE TotalRentals > {LOW_RENTALS_THRESHOLD} AND AvgRating >= {GOOD_PERFORMER_RATING}" :
+                        $"WHERE (TotalRentals <= {LOW_RENTALS_THRESHOLD} OR AvgRating < {GOOD_PERFORMER_RATING})"
                         : "")}
                     ORDER BY TotalRentals DESC, AvgRating DESC",
                 
