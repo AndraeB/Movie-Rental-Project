@@ -26,7 +26,7 @@ VALUES
     ('Die Hard 2', 'Action', 3.89, 5, 1, 4),
     ('Die Hard 3', 'Action', 3.89, 4, 1, 4),
     ('The Notebook', 'Romance', 2.99, 0, 0, 4),
-    ('Inception', 'Sci-Fi', 4.99, 6, 1, 5),
+    ('Inception', 'Sci-Fi', 4.99, 1, 1, 5),
     ('The Godfather', 'Drama', 4.99, 4, 1, 5),
     ('Toy Story', 'Animation', 2.99, 5, 1, 5),
     ('The Shining', 'Horror', 3.99, 3, 1, 4),
@@ -124,7 +124,7 @@ VALUES
     (@Notebook, '10000', '2024-03-25'),     -- Customer waiting for The Notebook
     (@Shining, '10001', '2024-03-24'),      -- Customer waiting for The Shining
     (@Godfather, '10000', '2024-03-25'),     -- Customer waiting for The Godfather
-    (@Inception, '10002', '2024-03-23');    -- Customer waiting for Inception
+    (@Inception, '10000', '2024-03-23');    -- Customer waiting for Inception
 
 INSERT INTO Cust_Phone (CustomerID, PhoneNumber)
 VALUES
