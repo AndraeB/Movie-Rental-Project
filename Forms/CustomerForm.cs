@@ -142,9 +142,20 @@ namespace MovieRentalProject
 
         private void customerEditButton_Click(object sender, EventArgs e)
         {
-            EditCustomer edt = new EditCustomer();
-            edt.Show();
-            this.Hide();
+            if (customerDataViewGrid.SelectedRows.Count > 0)
+            {
+                // Get the CustomerID from the selected row (assuming it's the first column)
+                string selectedCustomerID = customerDataViewGrid.SelectedRows[0].Cells[0].Value.ToString();
+
+                // Open the EditCustomer form and pass the selected CustomerID
+                EditCustomer editCustomer = new EditCustomer(selectedCustomerID);
+                editCustomer.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Please select a customer to edit.", "Edit Customer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

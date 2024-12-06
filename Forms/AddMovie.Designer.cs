@@ -66,11 +66,11 @@
             // 
             MovieMaintenance.AutoSize = true;
             MovieMaintenance.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            MovieMaintenance.Location = new Point(27, 26);
+            MovieMaintenance.Location = new Point(12, 9);
             MovieMaintenance.Name = "MovieMaintenance";
-            MovieMaintenance.Size = new Size(184, 28);
+            MovieMaintenance.Size = new Size(109, 28);
             MovieMaintenance.TabIndex = 1;
-            MovieMaintenance.Text = "Movie Maintenance";
+            MovieMaintenance.Text = "Add Movie";
             // 
             // FeeAdd
             // 
@@ -115,7 +115,7 @@
             Cancel.Name = "Cancel";
             Cancel.Size = new Size(75, 23);
             Cancel.TabIndex = 6;
-            Cancel.Text = "CANCEL";
+            Cancel.Text = "BACK";
             Cancel.UseVisualStyleBackColor = true;
             Cancel.Click += Cancel_Click;
             // 

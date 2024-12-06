@@ -185,12 +185,12 @@
             // 
             SearchText.AutoSize = true;
             SearchText.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point);
-            SearchText.ForeColor = Color.Blue;
+            SearchText.ForeColor = Color.Black;
             SearchText.Location = new Point(12, 9);
             SearchText.Name = "SearchText";
-            SearchText.Size = new Size(289, 28);
+            SearchText.Size = new Size(145, 28);
             SearchText.TabIndex = 16;
-            SearchText.Text = "CustomerID: (Display here[?])";
+            SearchText.Text = "Edit Customer";
             // 
             // CustEditPostalCode
             // 

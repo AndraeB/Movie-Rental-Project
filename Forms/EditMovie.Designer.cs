@@ -124,9 +124,9 @@
             MovieMaintenance.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             MovieMaintenance.Location = new Point(12, 9);
             MovieMaintenance.Name = "MovieMaintenance";
-            MovieMaintenance.Size = new Size(184, 28);
+            MovieMaintenance.Size = new Size(106, 28);
             MovieMaintenance.TabIndex = 14;
-            MovieMaintenance.Text = "Movie Maintenance";
+            MovieMaintenance.Text = "Edit Movie";
             // 
             // TitleAdd
             // 

@@ -28,12 +28,12 @@ namespace MovieRentalProject
         // Main constructor
         public EditCustomer(string custID)
         {
-            
             InitializeComponent();
-            this.custID = Global.GlobalCustID;
-            LoadCustomerDetails();
-            SearchText.Text = "CustomerID: "+this.custID;
+            this.custID = custID; // Use the custID passed to the constructor
+            LoadCustomerDetails(); // Load customer details using the passed custID
+            SearchText.Text = "CustomerID: " + this.custID; // Display the CustomerID in the search text box
         }
+
         private void LoadCustomerDetails()
         {
             try
