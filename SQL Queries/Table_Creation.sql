@@ -55,7 +55,7 @@ CREATE TABLE Customer (
     PostalCode nchar(6) NOT NULL,
     EmailAddress varchar(50),
     AccountNumber nchar(20) NOT NULL,
-    AccountDateCreation date NOT NULL,
+    AccountDateCreation date NOT NULL DEFAULT (GETDATE()),
     CreditCardNumber nchar(16) NOT NULL,
     RentalHistory nchar(50),          -- Should this be a varchar?
     Rating int NOT NULL
