@@ -446,9 +446,12 @@ namespace MovieRentalProject
                         SUM(m.DistributionFee) AS Revenue,
                         AVG(CAST(mr.Rating AS FLOAT)) AS AvgRating,
                         m.NumOfCopies AS AvailableCopies,
-                        CAST(SUM(m.DistributionFee) / m.NumOfCopies AS DECIMAL(10,2)) AS RevenuePerCopy,
-                        CAST(COUNT(o.OrderID) AS FLOAT) / 
-                            NULLIF(DATEDIFF(DAY, MIN(o.CheckoutDateTime), GETDATE()), 0) * 30 AS MonthlyRentalRate,
+                        CAST(SUM(m.DistributionFee) / NULLIF(m.NumOfCopies, 0) AS DECIMAL(10,2)) AS RevenuePerCopy,
+                        CASE 
+                            WHEN COUNT(o.OrderID) = 0 THEN 0
+                            WHEN DATEDIFF(DAY, MIN(o.CheckoutDateTime), GETDATE()) = 0 THEN COUNT(o.OrderID)
+                            ELSE CAST(COUNT(o.OrderID) AS FLOAT) / DATEDIFF(DAY, MIN(o.CheckoutDateTime), GETDATE()) * 30
+                        END AS MonthlyRentalRate,
                         (SELECT COUNT(*) FROM Ordr o2 
                         WHERE o2.MovieName = m.MovieName 
                         AND o2.ReturnDateTime IS NULL) AS CurrentlyRented
