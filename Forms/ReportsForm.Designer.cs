@@ -33,12 +33,12 @@
             reportsGrid = new DataGridView();
             BackButton = new Button();
             filterPanel = new Panel();
-            filterComboBox1 = new ComboBox();
-            filterComboBox2 = new ComboBox();
-            filterComboBox3 = new ComboBox();
             filterLabel1 = new Label();
             filterLabel2 = new Label();
             filterLabel3 = new Label();
+            filterComboBox1 = new ComboBox();
+            filterComboBox2 = new ComboBox();
+            filterComboBox3 = new ComboBox();
             filterToggleButton = new Button();
             ((System.ComponentModel.ISupportInitialize)reportsGrid).BeginInit();
             filterPanel.SuspendLayout();
@@ -56,24 +56,33 @@
             // 
             // GenerateButton
             // 
-            GenerateButton.Location = new Point(373, 31);
+            GenerateButton.Location = new Point(358, 4);
             GenerateButton.Name = "GenerateButton";
-            GenerateButton.Size = new Size(104, 23);
+            GenerateButton.Size = new Size(120, 50);
             GenerateButton.TabIndex = 12;
             GenerateButton.Text = "Generate Report";
             GenerateButton.UseVisualStyleBackColor = true;
             GenerateButton.Click += GenerateButton_Click;
             // 
-            // filterToggleButton
+            // reportsGrid
             // 
-            filterToggleButton.Location = new Point(492, 31);
-            filterToggleButton.Name = "filterToggleButton";
-            filterToggleButton.Size = new Size(75, 23);
-            filterToggleButton.TabIndex = 15;
-            filterToggleButton.Text = "Filters";
-            filterToggleButton.UseVisualStyleBackColor = true;
-            filterToggleButton.Visible = false;
-            filterToggleButton.Click += FilterToggleButton_Click;
+            reportsGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            reportsGrid.Location = new Point(32, 130);
+            reportsGrid.Name = "reportsGrid";
+            reportsGrid.RowTemplate.Height = 25;
+            reportsGrid.Size = new Size(736, 266);
+            reportsGrid.TabIndex = 13;
+            reportsGrid.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // BackButton
+            // 
+            BackButton.Location = new Point(12, 402);
+            BackButton.Name = "BackButton";
+            BackButton.Size = new Size(120, 45);
+            BackButton.TabIndex = 14;
+            BackButton.Text = "BACK";
+            BackButton.UseVisualStyleBackColor = true;
+            BackButton.Click += BackButton_Click;
             // 
             // filterPanel
             // 
@@ -99,14 +108,6 @@
             filterLabel1.TabIndex = 17;
             filterLabel1.Text = "Genre";
             // 
-            // filterComboBox1
-            // 
-            filterComboBox1.Location = new Point(10, 26);
-            filterComboBox1.Name = "filterComboBox1";
-            filterComboBox1.Size = new Size(200, 23);
-            filterComboBox1.TabIndex = 18;
-            filterComboBox1.SelectedIndexChanged += FilterComboBox1_SelectedIndexChanged;
-            // 
             // filterLabel2
             // 
             filterLabel2.AutoSize = true;
@@ -116,6 +117,23 @@
             filterLabel2.TabIndex = 19;
             filterLabel2.Text = "Rating";
             // 
+            // filterLabel3
+            // 
+            filterLabel3.AutoSize = true;
+            filterLabel3.Location = new Point(430, 8);
+            filterLabel3.Name = "filterLabel3";
+            filterLabel3.Size = new Size(75, 15);
+            filterLabel3.TabIndex = 21;
+            filterLabel3.Text = "Performance";
+            // 
+            // filterComboBox1
+            // 
+            filterComboBox1.Location = new Point(10, 26);
+            filterComboBox1.Name = "filterComboBox1";
+            filterComboBox1.Size = new Size(200, 23);
+            filterComboBox1.TabIndex = 18;
+            filterComboBox1.SelectedIndexChanged += FilterComboBox1_SelectedIndexChanged;
+            // 
             // filterComboBox2
             // 
             filterComboBox2.Location = new Point(220, 26);
@@ -123,15 +141,6 @@
             filterComboBox2.Size = new Size(200, 23);
             filterComboBox2.TabIndex = 20;
             filterComboBox2.SelectedIndexChanged += FilterComboBox2_SelectedIndexChanged;
-            // 
-            // filterLabel3
-            // 
-            filterLabel3.AutoSize = true;
-            filterLabel3.Location = new Point(430, 8);
-            filterLabel3.Name = "filterLabel3";
-            filterLabel3.Size = new Size(79, 15);
-            filterLabel3.TabIndex = 21;
-            filterLabel3.Text = "Performance";
             // 
             // filterComboBox3
             // 
@@ -141,25 +150,16 @@
             filterComboBox3.TabIndex = 22;
             filterComboBox3.SelectedIndexChanged += FilterComboBox3_SelectedIndexChanged;
             // 
-            // reportsGrid
+            // filterToggleButton
             // 
-            reportsGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            reportsGrid.Location = new Point(32, 130);
-            reportsGrid.Name = "reportsGrid";
-            reportsGrid.RowTemplate.Height = 25;
-            reportsGrid.Size = new Size(736, 266);
-            reportsGrid.TabIndex = 13;
-            reportsGrid.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // BackButton
-            // 
-            BackButton.Location = new Point(653, 415);
-            BackButton.Name = "BackButton";
-            BackButton.Size = new Size(115, 23);
-            BackButton.TabIndex = 14;
-            BackButton.Text = "BACK";
-            BackButton.UseVisualStyleBackColor = true;
-            BackButton.Click += BackButton_Click;
+            filterToggleButton.Location = new Point(516, 4);
+            filterToggleButton.Name = "filterToggleButton";
+            filterToggleButton.Size = new Size(120, 50);
+            filterToggleButton.TabIndex = 15;
+            filterToggleButton.Text = "Filters";
+            filterToggleButton.UseVisualStyleBackColor = true;
+            filterToggleButton.Visible = false;
+            filterToggleButton.Click += FilterToggleButton_Click;
             // 
             // ReportsForm
             // 

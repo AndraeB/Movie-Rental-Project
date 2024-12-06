@@ -76,6 +76,7 @@ namespace MovieRentalProject
                         command.Parameters.AddWithValue("@AccountNumber", accountNum);
                         command.Parameters.AddWithValue("@CreditCardNumber", customerCard);
                         command.Parameters.AddWithValue("@Rating", customerRating);
+                        command.Parameters.AddWithValue("@AccountDateCreation", DateTime.Now);
                         newCustomerAccountNum = Convert.ToInt32(command.ExecuteScalar());
 
                     }

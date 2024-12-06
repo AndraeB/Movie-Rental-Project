@@ -77,7 +77,7 @@
             Cancel.Name = "Cancel";
             Cancel.Size = new Size(120, 50);
             Cancel.TabIndex = 19;
-            Cancel.Text = "CANCEL";
+            Cancel.Text = "BACK";
             Cancel.UseVisualStyleBackColor = true;
             Cancel.Click += Cancel_Click;
             // 

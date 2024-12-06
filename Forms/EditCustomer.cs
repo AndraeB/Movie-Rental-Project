@@ -52,7 +52,6 @@ namespace MovieRentalProject
                             {
                                 if (reader.Read())
                                 {
-
                                     // Populate text boxes with existing customer data
                                     FirstNmTxtBox.Text = reader["FirstName"].ToString();
                                     LastNmTxtBox.Text = reader["LastName"].ToString();
@@ -62,6 +61,7 @@ namespace MovieRentalProject
                                     CityTxtBox.Text = reader["City"].ToString();
                                     ProvinceTxtBox.Text = reader["Province"].ToString();
                                     CreditCardTxtBox.Text = reader["CreditCardNumber"].ToString();
+                                    customerRatingBox.Text = reader["Rating"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("Rating")).ToString() : "0";
                                 }
                             }
                         }
@@ -92,6 +92,14 @@ namespace MovieRentalProject
             string CustProvince = ProvinceTxtBox.Text;
             string CustCredCard = CreditCardTxtBox.Text;
             string CustPostalCode = CustEditPostalCode.Text;
+
+            int CustRating;
+            if (!int.TryParse(customerRatingBox.Text, out CustRating))
+            {
+                MessageBox.Show("Please enter a valid numeric rating.");
+                return;
+            }
+
             // Check if fields are filled
             if (this.Controls.OfType<TextBox>().Any(tb => string.IsNullOrEmpty(tb.Text)))
             {
@@ -100,12 +108,12 @@ namespace MovieRentalProject
             }
 
             // If the error handling is passed then apply changes to the database
-            ApplyCustomerEdit(CustFirstNm, CustLastNm, CustEmail, CustPostalCode, CustAddress, CustCity, CustProvince, CustCredCard);
+            ApplyCustomerEdit(CustFirstNm, CustLastNm, CustEmail, CustPostalCode, CustAddress, CustCity, CustProvince, CustCredCard, CustRating);
             CustomerForm customerForm = new CustomerForm();
             customerForm.Show();
             this.Hide();
         }
-        private void ApplyCustomerEdit(string FirstNm, string LastNm, string E_Mail, string PostalCode, string Addr, string City, string Province, string CreditCard)
+        private void ApplyCustomerEdit(string FirstNm, string LastNm, string E_Mail, string PostalCode, string Addr, string City, string Province, string CreditCard, int Rating)
         {
             try
             {
@@ -121,8 +129,9 @@ namespace MovieRentalProject
                                    "City = @City, " +
                                    "Province = @Province, " +
                                    "PostalCode = @PostalCode, " +
-                                   "CreditCardNumber = @CredCard " +
-                                   "WHERE CustomerID = @CustomerID"; 
+                                   "CreditCardNumber = @CredCard, " +
+                                   "Rating = @Rating" +
+                                   "WHERE CustomerID = @CustomerID";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -135,7 +144,9 @@ namespace MovieRentalProject
                         command.Parameters.AddWithValue("@Province", Province);
                         command.Parameters.AddWithValue("@PostalCode", PostalCode);
                         command.Parameters.AddWithValue("@CredCard", CreditCard);
+                        command.Parameters.AddWithValue("@Rating", Rating);
                         command.Parameters.AddWithValue("@CustomerID", this.custID);
+
                         // Execute the query
                         int rowsAffected = command.ExecuteNonQuery();
 

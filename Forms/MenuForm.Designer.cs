@@ -32,12 +32,13 @@
             CustomerMaintenance = new Button();
             Rental = new Button();
             Reports = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // MovieMaintenance
             // 
             MovieMaintenance.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            MovieMaintenance.Location = new Point(279, 53);
+            MovieMaintenance.Location = new Point(275, 73);
             MovieMaintenance.Name = "MovieMaintenance";
             MovieMaintenance.Size = new Size(210, 73);
             MovieMaintenance.TabIndex = 0;
@@ -48,7 +49,7 @@
             // CustomerMaintenance
             // 
             CustomerMaintenance.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            CustomerMaintenance.Location = new Point(279, 132);
+            CustomerMaintenance.Location = new Point(275, 152);
             CustomerMaintenance.Name = "CustomerMaintenance";
             CustomerMaintenance.Size = new Size(210, 73);
             CustomerMaintenance.TabIndex = 1;
@@ -59,7 +60,7 @@
             // Rental
             // 
             Rental.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            Rental.Location = new Point(279, 211);
+            Rental.Location = new Point(275, 231);
             Rental.Name = "Rental";
             Rental.Size = new Size(210, 73);
             Rental.TabIndex = 2;
@@ -70,7 +71,7 @@
             // Reports
             // 
             Reports.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point);
-            Reports.Location = new Point(279, 290);
+            Reports.Location = new Point(275, 310);
             Reports.Name = "Reports";
             Reports.Size = new Size(210, 73);
             Reports.TabIndex = 3;
@@ -78,11 +79,22 @@
             Reports.UseVisualStyleBackColor = true;
             Reports.Click += Reports_Click_1;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 20F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(297, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(169, 37);
+            label1.TabIndex = 4;
+            label1.Text = "MAIN MENU";
+            // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label1);
             Controls.Add(Reports);
             Controls.Add(Rental);
             Controls.Add(CustomerMaintenance);
@@ -90,6 +102,7 @@
             Name = "MenuForm";
             Text = "MenuForm";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -98,5 +111,6 @@
         private Button CustomerMaintenance;
         private Button Rental;
         private Button Reports;
+        private Label label1;
     }
 }

@@ -47,6 +47,8 @@
             SearchText = new Label();
             CustEditPostalCode = new TextBox();
             label1 = new Label();
+            label2 = new Label();
+            customerRatingBox = new TextBox();
             SuspendLayout();
             // 
             // FinishBtn
@@ -55,7 +57,7 @@
             FinishBtn.Name = "FinishBtn";
             FinishBtn.Size = new Size(120, 50);
             FinishBtn.TabIndex = 0;
-            FinishBtn.Text = "FINISH";
+            FinishBtn.Text = "SAVE";
             FinishBtn.UseVisualStyleBackColor = true;
             FinishBtn.Click += FinishBtn_Click;
             // 
@@ -65,14 +67,14 @@
             CancelBtn.Name = "CancelBtn";
             CancelBtn.Size = new Size(120, 50);
             CancelBtn.TabIndex = 1;
-            CancelBtn.Text = "CANCEL";
+            CancelBtn.Text = "BACK";
             CancelBtn.UseVisualStyleBackColor = true;
             CancelBtn.Click += CancelBtn_Click;
             // 
             // FirstNmLbl
             // 
             FirstNmLbl.AutoSize = true;
-            FirstNmLbl.Location = new Point(12, 51);
+            FirstNmLbl.Location = new Point(12, 72);
             FirstNmLbl.Name = "FirstNmLbl";
             FirstNmLbl.Size = new Size(64, 15);
             FirstNmLbl.TabIndex = 2;
@@ -81,7 +83,7 @@
             // LastNmLbl
             // 
             LastNmLbl.AutoSize = true;
-            LastNmLbl.Location = new Point(246, 51);
+            LastNmLbl.Location = new Point(246, 72);
             LastNmLbl.Name = "LastNmLbl";
             LastNmLbl.Size = new Size(63, 15);
             LastNmLbl.TabIndex = 3;
@@ -89,14 +91,14 @@
             // 
             // FirstNmTxtBox
             // 
-            FirstNmTxtBox.Location = new Point(12, 69);
+            FirstNmTxtBox.Location = new Point(12, 90);
             FirstNmTxtBox.Name = "FirstNmTxtBox";
             FirstNmTxtBox.Size = new Size(212, 23);
             FirstNmTxtBox.TabIndex = 4;
             // 
             // LastNmTxtBox
             // 
-            LastNmTxtBox.Location = new Point(246, 69);
+            LastNmTxtBox.Location = new Point(246, 90);
             LastNmTxtBox.Name = "LastNmTxtBox";
             LastNmTxtBox.Size = new Size(212, 23);
             LastNmTxtBox.TabIndex = 5;
@@ -104,7 +106,7 @@
             // EmailLbl
             // 
             EmailLbl.AutoSize = true;
-            EmailLbl.Location = new Point(12, 101);
+            EmailLbl.Location = new Point(12, 122);
             EmailLbl.Name = "EmailLbl";
             EmailLbl.Size = new Size(36, 15);
             EmailLbl.TabIndex = 6;
@@ -113,7 +115,7 @@
             // AddressLbl
             // 
             AddressLbl.AutoSize = true;
-            AddressLbl.Location = new Point(12, 144);
+            AddressLbl.Location = new Point(12, 165);
             AddressLbl.Name = "AddressLbl";
             AddressLbl.Size = new Size(49, 15);
             AddressLbl.TabIndex = 7;
@@ -121,14 +123,14 @@
             // 
             // EmailTxtBox
             // 
-            EmailTxtBox.Location = new Point(12, 119);
+            EmailTxtBox.Location = new Point(12, 140);
             EmailTxtBox.Name = "EmailTxtBox";
             EmailTxtBox.Size = new Size(212, 23);
             EmailTxtBox.TabIndex = 8;
             // 
             // AddressTxtBox
             // 
-            AddressTxtBox.Location = new Point(12, 162);
+            AddressTxtBox.Location = new Point(12, 183);
             AddressTxtBox.Name = "AddressTxtBox";
             AddressTxtBox.Size = new Size(363, 23);
             AddressTxtBox.TabIndex = 9;
@@ -136,7 +138,7 @@
             // CityLbl
             // 
             CityLbl.AutoSize = true;
-            CityLbl.Location = new Point(12, 224);
+            CityLbl.Location = new Point(12, 213);
             CityLbl.Name = "CityLbl";
             CityLbl.Size = new Size(28, 15);
             CityLbl.TabIndex = 10;
@@ -144,14 +146,14 @@
             // 
             // CityTxtBox
             // 
-            CityTxtBox.Location = new Point(12, 242);
+            CityTxtBox.Location = new Point(12, 231);
             CityTxtBox.Name = "CityTxtBox";
             CityTxtBox.Size = new Size(212, 23);
             CityTxtBox.TabIndex = 11;
             // 
             // ProvinceTxtBox
             // 
-            ProvinceTxtBox.Location = new Point(246, 242);
+            ProvinceTxtBox.Location = new Point(246, 231);
             ProvinceTxtBox.Name = "ProvinceTxtBox";
             ProvinceTxtBox.Size = new Size(212, 23);
             ProvinceTxtBox.TabIndex = 12;
@@ -159,7 +161,7 @@
             // ProvinceLbl
             // 
             ProvinceLbl.AutoSize = true;
-            ProvinceLbl.Location = new Point(246, 224);
+            ProvinceLbl.Location = new Point(246, 213);
             ProvinceLbl.Name = "ProvinceLbl";
             ProvinceLbl.Size = new Size(53, 15);
             ProvinceLbl.TabIndex = 13;
@@ -168,7 +170,7 @@
             // CreditCardLbl
             // 
             CreditCardLbl.AutoSize = true;
-            CreditCardLbl.Location = new Point(12, 283);
+            CreditCardLbl.Location = new Point(246, 122);
             CreditCardLbl.Name = "CreditCardLbl";
             CreditCardLbl.Size = new Size(67, 15);
             CreditCardLbl.TabIndex = 14;
@@ -176,7 +178,7 @@
             // 
             // CreditCardTxtBox
             // 
-            CreditCardTxtBox.Location = new Point(12, 301);
+            CreditCardTxtBox.Location = new Point(246, 140);
             CreditCardTxtBox.Name = "CreditCardTxtBox";
             CreditCardTxtBox.Size = new Size(212, 23);
             CreditCardTxtBox.TabIndex = 15;
@@ -194,7 +196,7 @@
             // 
             // CustEditPostalCode
             // 
-            CustEditPostalCode.Location = new Point(246, 119);
+            CustEditPostalCode.Location = new Point(12, 279);
             CustEditPostalCode.Name = "CustEditPostalCode";
             CustEditPostalCode.Size = new Size(212, 23);
             CustEditPostalCode.TabIndex = 17;
@@ -202,17 +204,35 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(246, 101);
+            label1.Location = new Point(12, 261);
             label1.Name = "label1";
             label1.Size = new Size(70, 15);
             label1.TabIndex = 18;
             label1.Text = "Postal Code";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(246, 261);
+            label2.Name = "label2";
+            label2.Size = new Size(41, 15);
+            label2.TabIndex = 20;
+            label2.Text = "Rating";
+            // 
+            // customerRatingBox
+            // 
+            customerRatingBox.Location = new Point(246, 279);
+            customerRatingBox.Name = "customerRatingBox";
+            customerRatingBox.Size = new Size(212, 23);
+            customerRatingBox.TabIndex = 19;
             // 
             // EditCustomer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label2);
+            Controls.Add(customerRatingBox);
             Controls.Add(label1);
             Controls.Add(CustEditPostalCode);
             Controls.Add(SearchText);
@@ -259,5 +279,7 @@
         private Label SearchText;
         private TextBox CustEditPostalCode;
         private Label label1;
+        private Label label2;
+        private TextBox customerRatingBox;
     }
 }
