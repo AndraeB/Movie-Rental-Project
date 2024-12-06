@@ -84,18 +84,18 @@
             UserLabel.AutoSize = true;
             UserLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             UserLabel.ForeColor = Color.Blue;
-            UserLabel.Location = new Point(191, 129);
+            UserLabel.Location = new Point(185, 129);
             UserLabel.Name = "UserLabel";
             UserLabel.Size = new Size(106, 25);
             UserLabel.TabIndex = 1;
-            UserLabel.Text = "Username:";
+            UserLabel.Text = "ID Number:";
             // 
             // PassLabel
             // 
             PassLabel.AutoSize = true;
             PassLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             PassLabel.ForeColor = Color.Blue;
-            PassLabel.Location = new Point(191, 188);
+            PassLabel.Location = new Point(185, 188);
             PassLabel.Name = "PassLabel";
             PassLabel.Size = new Size(102, 25);
             PassLabel.TabIndex = 2;
