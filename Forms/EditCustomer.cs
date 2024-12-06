@@ -29,7 +29,7 @@ namespace MovieRentalProject
         public EditCustomer(string custID)
         {
             InitializeComponent();
-            this.custID = custID; // Use the custID passed to the constructor
+            this.custID = Global.GlobalCustID; // Use the custID passed to the constructor
             LoadCustomerDetails(); // Load customer details using the passed custID
             SearchText.Text = "CustomerID: " + this.custID; // Display the CustomerID in the search text box
         }
@@ -41,7 +41,7 @@ namespace MovieRentalProject
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = @"SELECT FirstName, LastName, EmailAddress, PostalCode, Addr, City, Province, CreditCardNumber 
+                    string query = @"SELECT FirstName, LastName, EmailAddress, PostalCode, Addr, City, Province, CreditCardNumber, Rating  
                                     FROM Customer 
                                     WHERE CustomerID = @CustomerID";
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -130,7 +130,7 @@ namespace MovieRentalProject
                                    "Province = @Province, " +
                                    "PostalCode = @PostalCode, " +
                                    "CreditCardNumber = @CredCard, " +
-                                   "Rating = @Rating" +
+                                   "Rating = @Rating " +
                                    "WHERE CustomerID = @CustomerID";
 
                     using (SqlCommand command = new SqlCommand(query, connection))

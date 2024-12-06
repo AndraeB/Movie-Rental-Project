@@ -23,6 +23,7 @@ namespace MovieRentalProject
         {
             InitializeComponent();
             SetupDataGridView();
+            LoadCustomerData();
             customerDataViewGrid.SelectionChanged += Customer_SelectionChanged;
         }
         private void SetupDataGridView()
@@ -74,7 +75,6 @@ namespace MovieRentalProject
         private void customerSearchButton_Click(object sender, EventArgs e)
         {
             string searchTitle = customerSearchBox.Text.Trim();
-            MessageBox.Show($"NewCustomer clicked. {searchTitle}");
             LoadCustomerData(searchTitle);
         }
         private void LoadCustomerData(string searchTitle = "")
@@ -148,8 +148,8 @@ namespace MovieRentalProject
                 string selectedCustomerID = customerDataViewGrid.SelectedRows[0].Cells[0].Value.ToString();
 
                 // Open the EditCustomer form and pass the selected CustomerID
-                EditCustomer editCustomer = new EditCustomer(selectedCustomerID);
-                editCustomer.Show();
+                EditCustomer edt = new EditCustomer();
+                edt.Show();
                 this.Hide();
             }
             else
