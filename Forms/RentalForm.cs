@@ -262,6 +262,33 @@ namespace MovieRentalProject
                 {
                     connection.Open();
 
+                    // Get Movie Details
+                    string MovieDetailsQuery = @"
+                SELECT MovieID, NumOfCopies, MovieAvailability FROM Movie
+                WHERE MovieName = @MovieName;";
+
+                    using (SqlCommand command = new SqlCommand(MovieDetailsQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@MovieName", Global.GlobalMovieName);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                Global.GlobalMovieID = reader["MovieID"].ToString();
+                                Global.GlobalMovieCopies = Convert.ToInt32(reader["NumOfCopies"]);
+                                Global.GlobalMovieAvailability = Convert.ToInt32(reader["MovieAvailability"]);
+                            }
+                        }
+                    }
+
+                    if (Global.GlobalMovieAvailability == 0)
+                    {
+                        MessageBox.Show("Movie unavailable; out of copies.",
+                            "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     // Insert the order
                     string insertOrderQuery = @"
                 INSERT INTO Ordr (CheckoutDateTime, ReturnDateTime, MovieName, CustomerID, EmployeeID)
@@ -277,24 +304,6 @@ namespace MovieRentalProject
                         command.ExecuteScalar();
                     }
 
-                    // Get MovieID
-                    string movieIDQuery = @"
-                SELECT MovieID FROM Movie
-                WHERE MovieName = @MovieName;";
-                    
-                    using (SqlCommand command = new SqlCommand(movieIDQuery, connection))
-                    {
-                        command.Parameters.AddWithValue("@MovieName", Global.GlobalMovieName);
-                        
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                Global.GlobalMovieID = reader["MovieID"].ToString();
-                            }
-                        }
-                    }
-
                     // Delete Movie from Customer Queue
                     string deleteQueueQuery = @"
                 DELETE FROM Queue_up
@@ -305,6 +314,23 @@ namespace MovieRentalProject
                         command.Parameters.AddWithValue("@MovieID", Global.GlobalMovieID);
                         command.Parameters.AddWithValue("@CustomerID", Global.GlobalCustID);
                         command.ExecuteScalar();
+                    }
+
+                    // Update the movie NumOfCopies
+                    string updateCopiesQuery = "UPDATE Movie SET NumOfCopies = @Copies, MovieAvailability = @MovieAvailability WHERE MovieName = @MovieName";
+                    using (SqlCommand command = new SqlCommand(updateCopiesQuery, connection))
+                    {
+                        Global.GlobalMovieCopies -= 1;
+
+                        if (Global.GlobalMovieCopies == 0)
+                        {
+                            Global.GlobalMovieAvailability = 0;
+                        }
+
+                        command.Parameters.AddWithValue("@Copies", Global.GlobalMovieCopies);
+                        command.Parameters.AddWithValue("@MovieAvailability", Global.GlobalMovieAvailability);
+                        command.Parameters.AddWithValue("@MovieName", Global.GlobalMovieName);
+                        command.ExecuteNonQuery();
                     }
 
                     // Refresh Queue
