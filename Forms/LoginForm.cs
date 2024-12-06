@@ -14,6 +14,8 @@ namespace MovieRentalProject
         private static string _globalCustID = "";
         private static string _globalMovieID = "";
         private static string _globalMovieName = "";
+        private static int _globalMovieCopies = 0;
+        private static int _globalMovieAvailability = 1;
 
         public static string GlobalEmpID
         {
@@ -37,6 +39,18 @@ namespace MovieRentalProject
         {
             get { return _globalMovieName; }
             set { _globalMovieName = value; }
+        }
+
+        public static int GlobalMovieCopies
+        {
+            get { return _globalMovieCopies; }
+            set { _globalMovieCopies = value; }
+        }
+
+        public static int GlobalMovieAvailability
+        {
+            get { return _globalMovieAvailability; }
+            set { _globalMovieAvailability = value; }
         }
     }
 

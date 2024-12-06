@@ -25,7 +25,7 @@ VALUES
     ('Die Hard', 'Action', 3.89, 7, 1, 5),
     ('Die Hard 2', 'Action', 3.89, 5, 1, 4),
     ('Die Hard 3', 'Action', 3.89, 4, 1, 4),
-    ('The Notebook', 'Romance', 2.99, 3, 1, 4),
+    ('The Notebook', 'Romance', 2.99, 0, 0, 4),
     ('Inception', 'Sci-Fi', 4.99, 6, 1, 5),
     ('The Godfather', 'Drama', 4.99, 4, 1, 5),
     ('Toy Story', 'Animation', 2.99, 5, 1, 5),
